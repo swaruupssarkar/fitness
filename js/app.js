@@ -534,25 +534,65 @@ const App = (() => {
   }
 
   function renderUserInfo(user) {
+    // Restore brand area to clean logo only
     const brand = document.getElementById('nav-brand-area');
-    if (!brand) return;
-    brand.innerHTML = `
-      <div class="nav-brand">
-        <span class="brand-icon">⚡</span>
-        <span class="brand-name">FitTrack</span>
-      </div>
-      <div class="nav-user">
-        <img class="nav-avatar" src="${user.photoURL || ''}" alt="">
-        <span class="nav-user-name">${user.displayName ? user.displayName.split(' ')[0] : 'You'}</span>
-        <button class="btn-signout" id="btn-signout" title="Sign out">
+    if (brand) {
+      brand.innerHTML = `
+        <div class="nav-brand">
+          <span class="brand-icon">⚡</span>
+          <span class="brand-name">FitTrack</span>
+        </div>`;
+    }
+
+    // Inject profile widget into top-right of main content
+    const existing = document.getElementById('profile-widget');
+    if (existing) existing.remove();
+
+    const widget = document.createElement('div');
+    widget.id = 'profile-widget';
+    const name  = user.displayName || 'You';
+    const email = user.email || '';
+    const photo = user.photoURL || '';
+    const initials = name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+
+    widget.innerHTML = `
+      <button class="profile-btn" id="profile-btn" aria-label="Profile">
+        ${photo
+          ? `<img src="${photo}" class="profile-avatar-img" alt="${name}">`
+          : `<span class="profile-avatar-initials">${initials}</span>`}
+      </button>
+      <div class="profile-dropdown" id="profile-dropdown" hidden>
+        <div class="profile-dropdown-header">
+          ${photo
+            ? `<img src="${photo}" class="profile-dd-img" alt="${name}">`
+            : `<span class="profile-dd-initials">${initials}</span>`}
+          <div class="profile-dd-info">
+            <div class="profile-dd-name">${name}</div>
+            <div class="profile-dd-email">${email}</div>
+          </div>
+        </div>
+        <div class="profile-dropdown-divider"></div>
+        <button class="profile-dd-signout" id="btn-signout">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-               stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+               stroke-linecap="round" stroke-linejoin="round" width="15" height="15">
             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
             <polyline points="16 17 21 12 16 7"/>
             <line x1="21" y1="12" x2="9" y2="12"/>
           </svg>
+          Sign out
         </button>
       </div>`;
+
+    document.getElementById('app').appendChild(widget);
+
+    const btn      = document.getElementById('profile-btn');
+    const dropdown = document.getElementById('profile-dropdown');
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdown.hidden = !dropdown.hidden;
+    });
+    document.addEventListener('click', () => { dropdown.hidden = true; });
     document.getElementById('btn-signout').addEventListener('click', () => {
       if (confirm('Sign out?')) Auth.signOut();
     });
