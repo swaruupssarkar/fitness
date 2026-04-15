@@ -1655,8 +1655,8 @@ body.sidebar-collapsed #main-content {
 }
 
 /* ─── Weight change metric colours ──────────────────────────── */
-.metric-gain { color: #f87171 !important; } /* red = gained weight */
-.metric-loss { color: #34d399 !important; } /* green = lost weight */
+.metric-gain { color: #34d399 !important; } /* green = gained weight */
+.metric-loss { color: #f87171 !important; } /* red = lost weight */
 
 /* ─── Sidebar LinkedIn footer (desktop) ─────────────────────── */
 .sidebar-footer {
