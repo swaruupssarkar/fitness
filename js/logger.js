@@ -28,12 +28,34 @@ const Logger = (() => {
   function editLog(logId) {
     const log = Storage.getLogs().find(l => l.id === logId);
     if (!log) return;
-    editLogId    = logId;
-    selectedDay  = { name: log.dayName };
-    logExercises = log.exercises.map(ex => ({
-      name: ex.name,
-      sets: ex.sets.map(s => ({ reps: s.reps, weight: s.weight })),
-    }));
+    editLogId   = logId;
+    selectedDay = { name: log.dayName };
+
+    // Load full plan day exercises so all fields always show
+    const plan    = Plans.getActivePlan();
+    const planDay = plan && plan.days.find(d => d.name === log.dayName);
+
+    if (planDay) {
+      // Use plan day as the base (all exercises + default sets),
+      // then overwrite with saved values where they exist
+      logExercises = planDay.exercises.map(planEx => {
+        const saved = log.exercises.find(e => e.name === planEx.name);
+        if (saved && saved.sets.length > 0) {
+          return { name: planEx.name, sets: saved.sets.map(s => ({ reps: s.reps, weight: s.weight })) };
+        }
+        return {
+          name: planEx.name,
+          sets: Array.from({ length: planEx.defaultSets }, () => ({ reps: planEx.defaultReps, weight: 0 })),
+        };
+      });
+    } else {
+      // Fallback: just use what was saved
+      logExercises = log.exercises.map(ex => ({
+        name: ex.name,
+        sets: ex.sets.map(s => ({ reps: s.reps, weight: s.weight })),
+      }));
+    }
+
     const el = document.getElementById('view-log');
     renderLogger(el, null, log.date);
     App.showView('log', true);
