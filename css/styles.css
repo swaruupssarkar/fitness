@@ -1651,3 +1651,47 @@ body.sidebar-collapsed #main-content {
   margin-top: 14px; font-size: 0.76rem; color: var(--muted);
 }
 
+/* ─── Sidebar LinkedIn footer (desktop) ─────────────────────── */
+.sidebar-footer {
+  margin-top: auto;
+  padding: 16px 12px;
+  border-top: 1px solid var(--border);
+}
+.sidebar-linkedin {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.78rem;
+  padding: 8px 10px;
+  border-radius: 8px;
+  transition: background 0.15s, color 0.15s;
+}
+.sidebar-linkedin:hover { background: var(--surface2); color: #0a66c2; }
+.sidebar-linkedin svg { flex-shrink: 0; }
+.sidebar.collapsed .sidebar-footer .nav-label { display: none; }
+.sidebar.collapsed .sidebar-linkedin { justify-content: center; }
+
+/* ─── Mobile dev credit (dashboard only) ────────────────────── */
+.mobile-dev-credit {
+  display: none;
+}
+@media (max-width: 768px) {
+  .mobile-dev-credit {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0 8px;
+  }
+  .mobile-dev-credit a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.75rem;
+    transition: color 0.15s;
+  }
+  .mobile-dev-credit a:hover { color: #0a66c2; }
+}
+
