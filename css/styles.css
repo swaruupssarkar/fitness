@@ -222,11 +222,6 @@ body.sidebar-collapsed #main-content {
 .greeting-heading {
   font-size: 1.75rem;
   font-weight: 700;
-  background: none !important;
-  -webkit-background-clip: unset !important;
-  background-clip: unset !important;
-  -webkit-text-fill-color: #f59e0b !important;
-  color: #f59e0b !important;
 }
 .subtitle { color: var(--muted); font-size: 0.875rem; margin-top: 4px; font-weight: 400; }
 
