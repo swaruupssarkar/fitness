@@ -19,7 +19,11 @@ const Auth = (() => {
   function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
-    return _auth.signInWithPopup(provider);
+    return _auth.signInWithRedirect(provider);
+  }
+
+  function handleRedirectResult() {
+    return _auth.getRedirectResult();
   }
 
   function signOut() {
@@ -34,5 +38,5 @@ const Auth = (() => {
   function getUser()             { return _auth.currentUser; }
   function getDb()               { return _db; }
 
-  return { signInWithGoogle, signOut, onAuthReady, getUser, getDb };
+  return { signInWithGoogle, handleRedirectResult, signOut, onAuthReady, getUser, getDb };
 })();

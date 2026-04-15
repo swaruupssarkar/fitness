@@ -1058,19 +1058,25 @@ const App = (() => {
     // Set up modal sign-in button
     const modalSigninBtn = document.getElementById('btn-modal-signin');
     if (modalSigninBtn) {
-      modalSigninBtn.addEventListener('click', async () => {
-        try {
-          modalSigninBtn.textContent = 'Signing in…';
-          await Auth.signInWithGoogle();
-        } catch (err) {
+      modalSigninBtn.addEventListener('click', () => {
+        modalSigninBtn.textContent = 'Redirecting to Google…';
+        modalSigninBtn.disabled = true;
+        Auth.signInWithGoogle().catch(err => {
           console.error(err);
+          modalSigninBtn.disabled = false;
           modalSigninBtn.innerHTML = `<img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18" height="18" alt="G"> Continue with Google`;
           toast('Sign-in failed. Please try again.', 'error');
-        }
+        });
       });
     }
     document.getElementById('btn-modal-close')?.addEventListener('click', hideSignInModal);
     document.getElementById('btn-modal-close-x')?.addEventListener('click', hideSignInModal);
+
+    // Handle redirect result when page loads after Google sign-in redirect
+    Auth.handleRedirectResult().catch(err => {
+      console.error('Redirect sign-in error:', err);
+      toast('Sign-in failed. Please try again.', 'error');
+    });
 
     Auth.onAuthReady(async (user) => {
       hideSignInModal();
