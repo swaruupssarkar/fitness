@@ -271,7 +271,7 @@ const App = (() => {
       <div class="metrics-grid">
         <div class="metric-card accent">
           <div class="metric-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V4"/><path d="M5 11l7-7 7 7"/><path d="M5 18h14"/></svg>
           </div>
           <div class="metric-value ${weightChange === null ? '' : weightChange > 0 ? 'metric-gain' : weightChange < 0 ? 'metric-loss' : ''}">
             ${weightChange === null ? '—' : (weightChange > 0 ? '+' : '') + weightChange + ' kg'}
