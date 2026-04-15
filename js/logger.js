@@ -1,9 +1,10 @@
 /* ─── Logger ─ Log Workout view ─────────────────────────────── */
 const Logger = (() => {
-  let selectedDay  = null;
-  let logExercises = [];
-  let editLogId    = null;   // null = new log, string = editing existing
-  let _presetDate  = null;   // date string pre-set from calendar tap
+  let selectedDay        = null;
+  let logExercises       = [];
+  let editLogId          = null;   // null = new log, string = editing existing
+  let _presetDate        = null;   // date string pre-set from calendar tap
+  let editDeletedExercises = new Set(); // exercises explicitly deleted during edit
 
   function render() {
     editLogId = null;
@@ -28,34 +29,31 @@ const Logger = (() => {
   function editLog(logId) {
     const log = Storage.getLogs().find(l => l.id === logId);
     if (!log) return;
-    editLogId   = logId;
+    editLogId = logId;
     selectedDay = { name: log.dayName };
+    // Restore which exercises were explicitly deleted for this log
+    editDeletedExercises = new Set(log.deletedExercises || []);
 
-    // Load full plan day exercises so all fields always show
     const plan    = Plans.getActivePlan();
     const planDay = plan && plan.days.find(d => d.name === log.dayName);
 
     if (planDay) {
-      // Start with plan day exercises (all show, prefilled with saved values)
-      logExercises = planDay.exercises.map(planEx => {
-        const saved = log.exercises.find(e => e.name === planEx.name);
-        if (saved && saved.sets.length > 0) {
-          return { name: planEx.name, sets: saved.sets.map(s => ({ reps: s.reps, weight: s.weight })) };
-        }
-        return {
-          name: planEx.name,
-          sets: Array.from({ length: planEx.defaultSets }, () => ({ reps: planEx.defaultReps, weight: 0 })),
-        };
-      });
-      // Also append any custom exercises saved in the log but NOT in the plan day
-      const planNames = new Set(planDay.exercises.map(e => e.name));
-      log.exercises.forEach(ex => {
-        if (!planNames.has(ex.name)) {
-          logExercises.push({ name: ex.name, sets: ex.sets.map(s => ({ reps: s.reps, weight: s.weight })) });
+      // Start with saved exercises (respects previous deletions)
+      logExercises = log.exercises.map(ex => ({
+        name: ex.name,
+        sets: ex.sets.map(s => ({ reps: s.reps, weight: s.weight })),
+      }));
+      // Add plan exercises not yet in the log AND not explicitly deleted
+      const savedNames = new Set(log.exercises.map(e => e.name));
+      planDay.exercises.forEach(planEx => {
+        if (!savedNames.has(planEx.name) && !editDeletedExercises.has(planEx.name)) {
+          logExercises.push({
+            name: planEx.name,
+            sets: Array.from({ length: planEx.defaultSets }, () => ({ reps: planEx.defaultReps, weight: 0 })),
+          });
         }
       });
     } else {
-      // Fallback: just use what was saved
       logExercises = log.exercises.map(ex => ({
         name: ex.name,
         sets: ex.sets.map(s => ({ reps: s.reps, weight: s.weight })),
@@ -294,6 +292,7 @@ const Logger = (() => {
       btn.addEventListener('click', () => {
         const ei = +btn.dataset.ei;
         if (logExercises.length <= 1) { App.toast('At least one exercise required.', 'error'); return; }
+        editDeletedExercises.add(logExercises[ei].name); // remember this deletion
         logExercises.splice(ei, 1);
         rebind();
       });
@@ -458,7 +457,7 @@ const Logger = (() => {
     if (editLogId) {
       // Update existing log
       const existing = Storage.getLogs().find(l => l.id === editLogId);
-      Storage.updateLog({ ...existing, date: logDate, exercises, bodyWeight, timeIn, timeOut, durationMinutes });
+      Storage.updateLog({ ...existing, date: logDate, exercises, bodyWeight, timeIn, timeOut, durationMinutes, deletedExercises: [...editDeletedExercises] });
       editLogId = null;
       App.toast('Workout updated! ✏️', 'success');
       setTimeout(() => App.navigate('dashboard'), 800);
