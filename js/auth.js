@@ -16,14 +16,31 @@ const Auth = (() => {
   const _auth = firebase.auth();
   const _db   = firebase.firestore();
 
-  function signInWithGoogle() {
+  // Try popup first; if blocked by browser, fall back to redirect
+  async function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
-    return _auth.signInWithRedirect(provider);
+    try {
+      return await _auth.signInWithPopup(provider);
+    } catch (err) {
+      if (err.code === 'auth/popup-blocked' ||
+          err.code === 'auth/popup-closed-by-user' ||
+          err.code === 'auth/cancelled-popup-request') {
+        // Popup was blocked — silently fall back to redirect
+        return _auth.signInWithRedirect(provider);
+      }
+      throw err;
+    }
   }
 
+  // Called once on app init to pick up any pending redirect result
   function handleRedirectResult() {
-    return _auth.getRedirectResult();
+    return _auth.getRedirectResult().catch(err => {
+      // Ignore "no pending redirect" — only log real errors
+      if (err.code && err.code !== 'auth/no-auth-event') {
+        console.error('Firebase redirect result error:', err.code, err.message);
+      }
+    });
   }
 
   function signOut() {

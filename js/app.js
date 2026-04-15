@@ -1058,25 +1058,29 @@ const App = (() => {
     // Set up modal sign-in button
     const modalSigninBtn = document.getElementById('btn-modal-signin');
     if (modalSigninBtn) {
-      modalSigninBtn.addEventListener('click', () => {
-        modalSigninBtn.textContent = 'Redirecting to Google…';
-        modalSigninBtn.disabled = true;
-        Auth.signInWithGoogle().catch(err => {
-          console.error(err);
+      modalSigninBtn.addEventListener('click', async () => {
+        try {
+          modalSigninBtn.textContent = 'Signing in…';
+          modalSigninBtn.disabled = true;
+          await Auth.signInWithGoogle();
+          // popup success: onAuthStateChanged fires automatically
+          // redirect: page navigates away — no further action needed here
+        } catch (err) {
+          console.error('Sign-in error:', err.code, err.message);
           modalSigninBtn.disabled = false;
           modalSigninBtn.innerHTML = `<img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18" height="18" alt="G"> Continue with Google`;
-          toast('Sign-in failed. Please try again.', 'error');
-        });
+          if (err.code !== 'auth/popup-closed-by-user' &&
+              err.code !== 'auth/cancelled-popup-request') {
+            toast('Sign-in failed — check console for details.', 'error');
+          }
+        }
       });
     }
     document.getElementById('btn-modal-close')?.addEventListener('click', hideSignInModal);
     document.getElementById('btn-modal-close-x')?.addEventListener('click', hideSignInModal);
 
-    // Handle redirect result when page loads after Google sign-in redirect
-    Auth.handleRedirectResult().catch(err => {
-      console.error('Redirect sign-in error:', err);
-      toast('Sign-in failed. Please try again.', 'error');
-    });
+    // Process any pending redirect result (fires after signInWithRedirect returns)
+    Auth.handleRedirectResult();
 
     Auth.onAuthReady(async (user) => {
       hideSignInModal();
