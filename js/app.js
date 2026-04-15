@@ -242,7 +242,8 @@ const App = (() => {
   function renderDashboard() {
     const el       = document.getElementById('view-dashboard');
     const plan       = Plans.getActivePlan();
-    const monthCount = Metrics.getMonthlyWorkoutCount();
+    const monthCount    = Metrics.getMonthlyWorkoutCount();
+    const weightChange  = Metrics.getMonthlyWeightChange();
     const topLift    = Metrics.getWeekTopLift();
     const total    = Metrics.getTotalWorkouts();
     const avgDur   = Metrics.getAvgSessionDuration();
@@ -270,10 +271,12 @@ const App = (() => {
       <div class="metrics-grid">
         <div class="metric-card accent">
           <div class="metric-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/><circle cx="12" cy="12" r="3"/></svg>
           </div>
-          <div class="metric-value">${monthCount}</div>
-          <div class="metric-label">This Month</div>
+          <div class="metric-value ${weightChange === null ? '' : weightChange > 0 ? 'metric-gain' : weightChange < 0 ? 'metric-loss' : ''}">
+            ${weightChange === null ? '—' : (weightChange > 0 ? '+' : '') + weightChange + ' kg'}
+          </div>
+          <div class="metric-label">${weightChange === null ? 'Weight Change' : weightChange > 0 ? 'Gained This Month' : weightChange < 0 ? 'Lost This Month' : 'No Change'}</div>
         </div>
         <div class="metric-card">
           <div class="metric-icon">

@@ -67,6 +67,18 @@ const Metrics = (() => {
     return Storage.getLogs().filter(l => l.date.startsWith(prefix)).length;
   }
 
+  function getMonthlyWeightChange() {
+    const now = new Date();
+    const prefix = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+    const entries = Storage.getLogs()
+      .filter(l => l.date.startsWith(prefix) && l.bodyWeight && l.bodyWeight > 0)
+      .sort((a, b) => a.date.localeCompare(b.date));
+    if (entries.length < 2) return null; // need at least 2 entries to show change
+    const first = entries[0].bodyWeight;
+    const last  = entries[entries.length - 1].bodyWeight;
+    return +(last - first).toFixed(1);
+  }
+
   function getActivityGrid(days = 14) {
     const loggedDates = new Set(Storage.getLogs().map(l => l.date));
     const grid = [];
@@ -156,7 +168,7 @@ const Metrics = (() => {
 
   return {
     getStreak, getWeeklyVolume, getWeekTopLift, getTotalVolume, getTotalWorkouts,
-    getMonthlyWorkoutCount,
+    getMonthlyWorkoutCount, getMonthlyWeightChange,
     getActivityGrid, getPRs, getExerciseHistory, getWeeklyVolumeHistory,
     getAvgSessionDuration, getSessionDurationHistory,
     getBodyWeightHistory, getAllExerciseNames, formatVolume,
