@@ -4,7 +4,13 @@ const Storage = (() => {
 
   /* ── LocalStorage helpers ────────────────────────────────────── */
   function get(key)         { try { return JSON.parse(localStorage.getItem(key)); } catch { return null; } }
-  function set(key, value)  { localStorage.setItem(key, JSON.stringify(value)); }
+  function set(key, value)  {
+    try { localStorage.setItem(key, JSON.stringify(value)); }
+    catch (e) {
+      if (e.name === 'QuotaExceededError') console.warn('FitTrack: localStorage quota exceeded. Old data may not be saved.');
+      else console.error('FitTrack: localStorage write failed', e);
+    }
+  }
 
   /* ── Firestore helpers ───────────────────────────────────────── */
   function uid() { return Auth.getUser()?.uid || null; }

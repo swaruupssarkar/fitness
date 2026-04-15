@@ -1,3 +1,13 @@
+/* ─── XSS Sanitizer (global — used by App and Logger) ─────────── */
+function esc(str) {
+  return String(str ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;');
+}
+
 /* ─── App ─ Router, Dashboard, Plans, History, Toast ─────────── */
 const App = (() => {
 
@@ -17,7 +27,7 @@ const App = (() => {
   /* ── Calendar state ─────────────────────────────────────────── */
   const today0    = new Date();
   const calState  = { year: today0.getFullYear(), month: today0.getMonth(), weekOffset: 0 };
-  const CAL_MIN   = { year: 2026, month: 0 };
+  const CAL_MIN   = { year: 2020, month: 0 };
   const CAL_MAX   = { year: 2050, month: 11 };
 
   /* ── Calendar helpers ───────────────────────────────────────── */
@@ -92,9 +102,9 @@ const App = (() => {
       cells += `
         <div class="month-cell${session ? ' cal-active' : ''}${missed ? ' cal-missed' : ''}${planned ? ' cal-planned' : ''}${isToday ? ' cal-today' : ''}">
           <span class="month-day-num${isToday ? ' today-num' : ''}">${d}</span>
-          ${session  ? `<div class="month-session">${session}</div>` : ''}
-          ${missed   ? `<div class="month-missed-label">${plannedDayName}</div>` : ''}
-          ${planned  ? `<div class="month-planned">${plannedDayName}</div>` : ''}
+          ${session  ? `<div class="month-session">${esc(session)}</div>` : ''}
+          ${missed   ? `<div class="month-missed-label">${esc(plannedDayName)}</div>` : ''}
+          ${planned  ? `<div class="month-planned">${esc(plannedDayName)}</div>` : ''}
           ${logs.length
             ? `<button class="cal-edit-btn" data-id="${logs[0].id}">${EDIT_SVG} Edit</button>`
             : date <= todayStr && !beforeStart
@@ -153,9 +163,9 @@ const App = (() => {
 
       // Status badge — blank if before plan start and no log
       let badge = '';
-      if (session)            badge = `<span class="wday-badge wday-logged">${session}</span>`;
-      else if (missed)        badge = `<span class="wday-badge wday-missed">${plannedDayName}</span>`;
-      else if (planned)       badge = `<span class="wday-badge wday-planned">${plannedDayName}</span>`;
+      if (session)            badge = `<span class="wday-badge wday-logged">${esc(session)}</span>`;
+      else if (missed)        badge = `<span class="wday-badge wday-missed">${esc(plannedDayName)}</span>`;
+      else if (planned)       badge = `<span class="wday-badge wday-planned">${esc(plannedDayName)}</span>`;
       else if (!beforeStart)  badge = `<span class="wday-badge wday-rest">Rest</span>`;
 
       const isPast = date < todayStr;
@@ -256,7 +266,7 @@ const App = (() => {
 
     el.innerHTML = `
       <div class="view-header">
-        <h1 class="greeting-heading">${getGreeting()}, ${(Auth.getUser()?.displayName || 'there').split(' ')[0]} 👋</h1>
+        <h1 class="greeting-heading">${getGreeting()}, ${esc((Auth.getUser()?.displayName || 'there').split(' ')[0])} 👋</h1>
         <p class="subtitle">${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</p>
       </div>
 
@@ -264,7 +274,7 @@ const App = (() => {
         <span class="plan-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         </span>
-        <strong>${plan ? plan.name : 'No plan set'}</strong>
+        <strong>${plan ? esc(plan.name) : 'No plan set'}</strong>
         <a href="#plans" class="plan-switch-link">Switch</a>
       </div>
 
@@ -283,7 +293,7 @@ const App = (() => {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 5h2M16 5h2M4 5a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1"/><path d="M6 5V3M18 5V3M8 8v8M16 8v8M4 16a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1"/></svg>
           </div>
           <div class="metric-value">${topLift ? topLift.weight + ' kg' : '—'}</div>
-          <div class="metric-label">${topLift ? topLift.name : 'Top Lift This Week'}</div>
+          <div class="metric-label">${topLift ? esc(topLift.name) : 'Top Lift This Week'}</div>
         </div>
         <div class="metric-card">
           <div class="metric-icon">
@@ -321,7 +331,7 @@ const App = (() => {
                <button class="btn btn-outline" id="btn-edit-log-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit Log</button>
              </div>`
           : `<div class="cta-row">
-               <a href="#log" class="btn btn-primary btn-lg">${todayWorkout ? `Log ${todayWorkout} →` : `Log Today's Workout →`}</a>
+               <a href="#log" class="btn btn-primary btn-lg">${todayWorkout ? `Log ${esc(todayWorkout)} →` : `Log Today's Workout →`}</a>
                <button class="btn btn-outline" id="btn-edit-log-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit Log</button>
              </div>`
         }
@@ -385,7 +395,7 @@ const App = (() => {
           <div class="plan-card${p.id === activeId ? ' plan-active' : ''}">
             <div class="plan-card-header">
               <div>
-                <h3>${p.name}</h3>
+                <h3>${esc(p.name)}</h3>
                 <p class="plan-meta">${p.days.length} days · ${p.isCustom ? 'Custom' : 'Preset'}</p>
               </div>
               <div class="plan-card-actions">
@@ -398,7 +408,7 @@ const App = (() => {
               </div>
             </div>
             <div class="plan-days">
-              ${p.days.map(d => `<span class="day-chip">${d.name}</span>`).join('')}
+              ${p.days.map(d => `<span class="day-chip">${esc(d.name)}</span>`).join('')}
             </div>
           </div>
         `).join('')}
@@ -563,7 +573,7 @@ const App = (() => {
         <div class="custom-day-header">
           <span class="drag-handle day-drag" title="Drag to reorder day">⠿</span>
           <input type="text" class="input day-name-input" data-di="${di}"
-                 placeholder="Day name (e.g. Chest & Bicep)" value="${day.name}">
+                 placeholder="Day name (e.g. Chest &amp; Bicep)" value="${esc(day.name)}">
           <button class="btn btn-sm btn-outline btn-dup-day" data-di="${di}" title="Duplicate day">⧉ Day</button>
           <button class="btn btn-sm btn-danger btn-rm-day" data-di="${di}">Remove</button>
         </div>
@@ -578,7 +588,7 @@ const App = (() => {
           ${day.exercises.map((ex, ei) => `
             <div class="custom-exercise-row" data-di="${di}" data-ei="${ei}">
               <span class="drag-handle ex-drag" title="Drag to reorder exercise">⠿</span>
-              <input type="text"   class="input ex-name"  data-di="${di}" data-ei="${ei}" placeholder="Exercise" value="${ex.name}">
+              <input type="text"   class="input ex-name"  data-di="${di}" data-ei="${ei}" placeholder="Exercise" value="${esc(ex.name)}">
               <input type="number" class="input ex-sets"  data-di="${di}" data-ei="${ei}" placeholder="Sets" value="${ex.defaultSets}" min="1" max="20">
               <input type="number" class="input ex-reps"  data-di="${di}" data-ei="${ei}" placeholder="Reps" value="${ex.defaultReps}" min="1" max="999">
               <button class="btn btn-sm btn-ghost btn-dup-ex" data-di="${di}" data-ei="${ei}" title="Duplicate exercise">⧉</button>
@@ -816,7 +826,7 @@ const App = (() => {
                 <div class="history-card-header">
                   <div>
                     <div class="history-date">${dateStr}</div>
-                    <div class="history-day">${log.dayName}</div>
+                    <div class="history-day">${esc(log.dayName)}</div>
                   </div>
                   <div class="history-actions">
                     <button class="btn btn-sm btn-ghost btn-expand" data-id="${log.id}">▼</button>
@@ -832,7 +842,7 @@ const App = (() => {
                 <div class="history-detail hidden" id="detail-${log.id}">
                   ${log.exercises.map(ex => `
                     <div class="history-exercise">
-                      <strong>${ex.name}</strong>
+                      <strong>${esc(ex.name)}</strong>
                       <div class="history-sets">
                         ${ex.sets.map((s, i) =>
                           `<span class="set-chip">Set ${i+1}: ${s.reps} × ${s.weight} kg</span>`
@@ -879,6 +889,7 @@ const App = (() => {
     }));
 
     el.querySelectorAll('.btn-del-log').forEach(btn => btn.addEventListener('click', () => {
+      if (!requireAuth()) return;
       if (!confirm('Delete this workout log?')) return;
       Storage.deleteLog(btn.dataset.id);
       toast('Log deleted');
@@ -995,17 +1006,17 @@ const App = (() => {
     widget.innerHTML = `
       <button class="profile-btn" id="profile-btn" aria-label="Profile">
         ${photo
-          ? `<img src="${photo}" class="profile-avatar-img" alt="${name}">`
-          : `<span class="profile-avatar-initials">${initials}</span>`}
+          ? `<img src="${esc(photo)}" class="profile-avatar-img" alt="${esc(name)}">`
+          : `<span class="profile-avatar-initials">${esc(initials)}</span>`}
       </button>
       <div class="profile-dropdown" id="profile-dropdown" hidden>
         <div class="profile-dropdown-header">
           ${photo
-            ? `<img src="${photo}" class="profile-dd-img" alt="${name}">`
-            : `<span class="profile-dd-initials">${initials}</span>`}
+            ? `<img src="${esc(photo)}" class="profile-dd-img" alt="${esc(name)}">`
+            : `<span class="profile-dd-initials">${esc(initials)}</span>`}
           <div class="profile-dd-info">
-            <div class="profile-dd-name">${name}</div>
-            <div class="profile-dd-email">${email}</div>
+            <div class="profile-dd-name">${esc(name)}</div>
+            <div class="profile-dd-email">${esc(email)}</div>
           </div>
         </div>
         <div class="profile-dropdown-divider"></div>

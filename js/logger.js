@@ -221,7 +221,7 @@ const Logger = (() => {
       <div class="exercise-card" data-ei="${ei}">
         <div class="exercise-header">
           <span class="drag-handle ex-log-drag" title="Drag to reorder exercise">⠿</span>
-          <h3 class="exercise-name">${ex.name}</h3>
+          <h3 class="exercise-name">${esc(ex.name)}</h3>
           <div class="exercise-header-actions">
             <button class="btn-add-set" data-ei="${ei}">+ Set</button>
             <button class="btn-del-exercise" data-ei="${ei}" title="Delete exercise">
@@ -433,6 +433,9 @@ const Logger = (() => {
     const logDate    = (dateInput && dateInput.value) || new Date().toISOString().slice(0, 10);
     const bwInput    = document.getElementById('log-bodyweight');
     const bodyWeight = bwInput && bwInput.value ? parseFloat(bwInput.value) : null;
+    if (bodyWeight !== null && (bodyWeight < 20 || bodyWeight > 300)) {
+      App.toast('Body weight must be between 20 and 300 kg.', 'error'); return;
+    }
     const timeIn     = document.getElementById('log-time-in')?.value || null;
     const timeOut    = document.getElementById('log-time-out')?.value || null;
     // Validate: gym out must be after gym in
