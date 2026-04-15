@@ -334,7 +334,7 @@ const Logger = (() => {
       logExercises[+inp.dataset.ei].sets[+inp.dataset.si].weight = parseFloat(inp.value) || 0);
 
     const exercises = logExercises
-      .map(ex => ({ ...ex, sets: ex.sets.filter(s => s.reps > 0) }))
+      .map(ex => ({ ...ex, sets: ex.sets.filter(s => s.reps > 0 && s.weight > 0) }))
       .filter(ex => ex.sets.length > 0);
 
     if (!exercises.length) {
