@@ -1208,6 +1208,9 @@ body.sidebar-collapsed #main-content {
 /* ─── Mobile ─────────────────────────────────────────────────── */
 @media (max-width: 768px) {
 
+  /* ── Hide sidebar footer on mobile (not part of bottom nav) ── */
+  .sidebar-footer { display: none !important; }
+
   /* ── Bottom tab bar ─────────────────────────────── */
   #sidebar,
   #sidebar.collapsed {
