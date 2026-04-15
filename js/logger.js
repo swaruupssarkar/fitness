@@ -120,7 +120,7 @@ const Logger = (() => {
       </div>`;
 
     document.getElementById('btn-back').addEventListener('click', () => {
-      if (isEdit) { editLogId = null; App.navigate('history'); }
+      if (isEdit) { editLogId = null; App.navigate('dashboard'); }
       else renderDayPicker(el, plan);
     });
     document.getElementById('btn-save').addEventListener('click', saveLog);
@@ -153,7 +153,7 @@ const Logger = (() => {
         Storage.deleteLog(editLogId);
         editLogId = null;
         App.toast('Log deleted and form reset.', 'success');
-        App.navigate('history');
+        App.navigate('dashboard');
         return;
       }
       // For new log: just clear all fields back to defaults
@@ -343,7 +343,7 @@ const Logger = (() => {
         Storage.deleteLog(editLogId);
         editLogId = null;
         App.toast('Workout removed — day marked as missed.', 'success');
-        setTimeout(() => App.navigate('history'), 800);
+        setTimeout(() => App.navigate('dashboard'), 800);
       } else {
         App.toast('No sets recorded yet!', 'error');
       }
@@ -371,7 +371,7 @@ const Logger = (() => {
       Storage.updateLog({ ...existing, date: logDate, exercises, bodyWeight, timeIn, timeOut, durationMinutes });
       editLogId = null;
       App.toast('Workout updated! ✏️', 'success');
-      setTimeout(() => App.navigate('history'), 800);
+      setTimeout(() => App.navigate('dashboard'), 800);
     } else {
       // New log
       const prevPRs = Metrics.getPRs();
