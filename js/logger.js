@@ -337,7 +337,18 @@ const Logger = (() => {
       .map(ex => ({ ...ex, sets: ex.sets.filter(s => s.reps > 0) }))
       .filter(ex => ex.sets.length > 0);
 
-    if (!exercises.length) { App.toast('No sets recorded yet!', 'error'); return; }
+    if (!exercises.length) {
+      if (editLogId) {
+        // Editing existing log with all exercises removed — delete the log so day goes back to red
+        Storage.deleteLog(editLogId);
+        editLogId = null;
+        App.toast('Workout removed — day marked as missed.', 'success');
+        setTimeout(() => App.navigate('history'), 800);
+      } else {
+        App.toast('No sets recorded yet!', 'error');
+      }
+      return;
+    }
 
     const dateInput  = document.getElementById('log-date');
     const logDate    = (dateInput && dateInput.value) || new Date().toISOString().slice(0, 10);
