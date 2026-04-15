@@ -222,7 +222,7 @@ body.sidebar-collapsed #main-content {
 .greeting-heading {
   font-size: 1.75rem;
   font-weight: 700;
-  background: linear-gradient(90deg, #ffffff 0%, #c4b5fd 60%, #7c6fff 100%);
+  background: linear-gradient(90deg, #a78bfa 0%, #7c6fff 50%, #38bdf8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
