@@ -45,10 +45,14 @@ const Charts = (() => {
   function render() {
     const el = document.getElementById('view-progress');
     const names = Metrics.getAllExerciseNames();
+    const dateStr = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
 
     if (!names.length) {
       el.innerHTML = `
-        <div class="view-header"><h1>Progress</h1></div>
+        <div class="view-header">
+          <h1>Progress</h1>
+          <p class="subtitle">${dateStr}</p>
+        </div>
         <div class="empty-state">
           <div class="empty-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
@@ -63,7 +67,10 @@ const Charts = (() => {
     }
 
     el.innerHTML = `
-      <div class="view-header"><h1>Progress</h1></div>
+      <div class="view-header">
+        <h1>Progress</h1>
+        <p class="subtitle">${dateStr}</p>
+      </div>
       <div class="progress-controls">
         <label for="ex-select">Exercise</label>
         <div class="ex-select-row">

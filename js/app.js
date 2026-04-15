@@ -335,7 +335,7 @@ const App = (() => {
                <button class="btn btn-outline" id="btn-edit-log-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit Log</button>
              </div>`
         }
-        <div class="edit-log-picker" id="edit-log-picker" style="display:none;">
+        <div class="edit-log-picker" id="edit-log-picker">
           <input type="date" id="edit-log-date" class="input log-date-input"
                  value="${todayStr}" max="${todayStr}">
           <button class="btn btn-primary" id="btn-edit-log-load">Load</button>
@@ -363,11 +363,11 @@ const App = (() => {
 
     if (toggleBtn) {
       toggleBtn.addEventListener('click', () => {
-        picker.style.display = picker.style.display === 'none' ? 'flex' : 'none';
+        picker.classList.toggle('open');
       });
     }
     if (cancelBtn) {
-      cancelBtn.addEventListener('click', () => { picker.style.display = 'none'; });
+      cancelBtn.addEventListener('click', () => { picker.classList.remove('open'); });
     }
     if (loadBtn) {
       loadBtn.addEventListener('click', () => {
@@ -375,7 +375,7 @@ const App = (() => {
         if (!dateVal) { toast('Please select a date.', 'error'); return; }
         const log = Storage.getLogs().find(l => l.date === dateVal);
         if (!log) { toast(`No workout logged on ${dateVal}.`, 'error'); return; }
-        picker.style.display = 'none';
+        picker.classList.remove('open');
         Logger.editLog(log.id);
       });
     }
