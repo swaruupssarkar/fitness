@@ -455,6 +455,14 @@ const Logger = (() => {
     const plan       = Plans.getActivePlan();
 
     if (editLogId) {
+      // Mark any plan exercise not in the final saved list as deleted for this day
+      const planDay = plan?.days.find(d => d.name === selectedDay?.name);
+      if (planDay) {
+        const savedNames = new Set(exercises.map(e => e.name));
+        planDay.exercises.forEach(planEx => {
+          if (!savedNames.has(planEx.name)) editDeletedExercises.add(planEx.name);
+        });
+      }
       // Update existing log
       const existing = Storage.getLogs().find(l => l.id === editLogId);
       Storage.updateLog({ ...existing, date: logDate, exercises, bodyWeight, timeIn, timeOut, durationMinutes, deletedExercises: [...editDeletedExercises] });
