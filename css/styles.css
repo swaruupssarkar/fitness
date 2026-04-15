@@ -1654,7 +1654,7 @@ body.sidebar-collapsed #main-content {
 /* ─── Sidebar LinkedIn footer (desktop) ─────────────────────── */
 .sidebar-footer {
   margin-top: auto;
-  padding: 16px 12px;
+  padding: 16px 12px 72px;
   border-top: 1px solid var(--border);
 }
 .sidebar-linkedin {
