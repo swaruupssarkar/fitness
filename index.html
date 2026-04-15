@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self';
-                 script-src 'self' https://cdn.jsdelivr.net https://www.gstatic.com;
-                 style-src 'self' https://fonts.googleapis.com;
+                 script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net https://www.gstatic.com;
+                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
                  font-src https://fonts.gstatic.com;
-                 img-src 'self' https://www.gstatic.com https://*.googleusercontent.com data:;
+                 img-src 'self' https://www.gstatic.com https://*.googleusercontent.com data: blob:;
                  connect-src 'self' https://*.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com https://firestore.googleapis.com;
-                 frame-src 'none';
+                 frame-src https://accounts.google.com https://*.firebaseapp.com;
                  object-src 'none';">
   <title>FitTrack</title>
   <link rel="icon" href="img/logo.png" type="image/png">
@@ -18,10 +18,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Lato:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=58">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"
-          integrity="sha384-eSCn7dXqRPFFBPMuSRUBBbFvjQi3kXq1n0O8vkzZbW0iRbOtbwomMcSZHAnbJpZ"
-          crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="css/styles.css?v=59">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <!-- Firebase compat SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
@@ -135,7 +133,7 @@
         </svg>
       </button>
       <div class="signin-modal-logo">
-        <img src="img/logo.png" alt="FitTrack" style="width:120px;height:auto;">
+        <img src="img/logo.png" alt="FitTrack" class="signin-modal-logo-img">
       </div>
       <h2 class="signin-modal-title">Sign in to save your data</h2>
       <p class="signin-modal-sub">Your workouts sync across all your devices — laptop, phone, and tablet.</p>

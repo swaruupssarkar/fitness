@@ -1692,6 +1692,7 @@ body.sidebar-collapsed #main-content {
 .signin-modal-x:hover { color: var(--text); background: var(--surface2); }
 
 .signin-modal-logo { margin-bottom: 20px; }
+.signin-modal-logo-img { width: 120px; height: auto; display: block; margin: 0 auto; }
 
 .signin-modal-title {
   font-family: 'Montserrat', system-ui, sans-serif;
