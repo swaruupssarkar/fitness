@@ -607,26 +607,40 @@ body.sidebar-collapsed #main-content {
 
 /* Gym time row */
 .gym-time-row {
-  display: flex;
-  align-items: flex-end;
-  gap: 16px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 8px;
 }
 .gym-time-field {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  flex: 1;
-  min-width: 120px;
 }
 .gym-time-duration {
-  font-size: 1rem;
-  font-weight: 700;
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
   color: var(--muted);
-  padding-bottom: 10px;
+  background: var(--surface2);
+  border-radius: 10px;
+  padding: 8px 14px;
+  margin-bottom: 12px;
   white-space: nowrap;
 }
+.gym-time-error {
+  grid-column: 1 / -1;
+  font-size: 0.78rem;
+  color: #f87171;
+  text-align: center;
+  margin-bottom: 8px;
+  display: none;
+}
+.gym-time-error.visible { display: block; }
 
 /* Log date picker */
 .log-date-row {

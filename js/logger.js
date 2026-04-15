@@ -122,16 +122,17 @@ const Logger = (() => {
       </div>
       <div class="gym-time-row">
         <div class="gym-time-field">
-          <label class="log-date-label" for="log-time-in">Gym In</label>
+          <label class="log-date-label" for="log-time-in">🏋️ Gym In</label>
           <input type="time" id="log-time-in" class="input log-date-input"
                  value="${isEdit && Storage.getLogs().find(l=>l.id===editLogId)?.timeIn || ''}">
         </div>
         <div class="gym-time-field">
-          <label class="log-date-label" for="log-time-out">Gym Out</label>
+          <label class="log-date-label" for="log-time-out">🚪 Gym Out</label>
           <input type="time" id="log-time-out" class="input log-date-input"
                  value="${isEdit && Storage.getLogs().find(l=>l.id===editLogId)?.timeOut || ''}">
         </div>
-        <div class="gym-time-duration" id="gym-duration-display">—</div>
+        <div class="gym-time-duration" id="gym-duration-display" style="display:none;">⏱ —</div>
+        <div class="gym-time-error" id="gym-time-error">⚠️ Gym Out must be later than Gym In</div>
       </div>
       <div id="exercise-list">${buildExercisesHTML()}</div>
 
@@ -162,13 +163,25 @@ const Logger = (() => {
       const inVal  = document.getElementById('log-time-in').value;
       const outVal = document.getElementById('log-time-out').value;
       const disp   = document.getElementById('gym-duration-display');
+      const err    = document.getElementById('gym-time-error');
       if (inVal && outVal) {
         const [ih, im] = inVal.split(':').map(Number);
         const [oh, om] = outVal.split(':').map(Number);
         const mins = (oh * 60 + om) - (ih * 60 + im);
-        if (mins > 0) { disp.textContent = `⏱ ${Math.floor(mins/60) ? Math.floor(mins/60)+'h ' : ''}${mins%60}min`; disp.style.color = 'var(--green)'; }
-        else { disp.textContent = '—'; disp.style.color = ''; }
-      } else { disp.textContent = '—'; disp.style.color = ''; }
+        if (mins > 0) {
+          const h = Math.floor(mins / 60);
+          const m = mins % 60;
+          disp.textContent = `⏱ ${h ? h + 'h ' : ''}${m}min`;
+          disp.style.display = 'flex';
+          err.classList.remove('visible');
+        } else {
+          disp.style.display = 'none';
+          err.classList.add('visible');
+        }
+      } else {
+        disp.style.display = 'none';
+        err && err.classList.remove('visible');
+      }
     }
     document.getElementById('log-time-in').addEventListener('change', updateDurationDisplay);
     document.getElementById('log-time-out').addEventListener('change', updateDurationDisplay);
@@ -417,6 +430,16 @@ const Logger = (() => {
     const bodyWeight = bwInput && bwInput.value ? parseFloat(bwInput.value) : null;
     const timeIn     = document.getElementById('log-time-in')?.value || null;
     const timeOut    = document.getElementById('log-time-out')?.value || null;
+    // Validate: gym out must be after gym in
+    if (timeIn && timeOut) {
+      const [ih, im] = timeIn.split(':').map(Number);
+      const [oh, om] = timeOut.split(':').map(Number);
+      if ((oh * 60 + om) <= (ih * 60 + im)) {
+        App.toast('Gym Out must be later than Gym In.', 'error');
+        document.getElementById('gym-time-error')?.classList.add('visible');
+        return;
+      }
+    }
     let durationMinutes = null;
     if (timeIn && timeOut) {
       const [ih, im] = timeIn.split(':').map(Number);
