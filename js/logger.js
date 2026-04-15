@@ -36,8 +36,7 @@ const Logger = (() => {
     const planDay = plan && plan.days.find(d => d.name === log.dayName);
 
     if (planDay) {
-      // Use plan day as the base (all exercises + default sets),
-      // then overwrite with saved values where they exist
+      // Start with plan day exercises (all show, prefilled with saved values)
       logExercises = planDay.exercises.map(planEx => {
         const saved = log.exercises.find(e => e.name === planEx.name);
         if (saved && saved.sets.length > 0) {
@@ -47,6 +46,13 @@ const Logger = (() => {
           name: planEx.name,
           sets: Array.from({ length: planEx.defaultSets }, () => ({ reps: planEx.defaultReps, weight: 0 })),
         };
+      });
+      // Also append any custom exercises saved in the log but NOT in the plan day
+      const planNames = new Set(planDay.exercises.map(e => e.name));
+      log.exercises.forEach(ex => {
+        if (!planNames.has(ex.name)) {
+          logExercises.push({ name: ex.name, sets: ex.sets.map(s => ({ reps: s.reps, weight: s.weight })) });
+        }
       });
     } else {
       // Fallback: just use what was saved
@@ -301,7 +307,7 @@ const Logger = (() => {
         const inp = document.getElementById('new-exercise-name');
         const name = inp.value.trim();
         if (!name) { App.toast('Enter an exercise name.', 'error'); return; }
-        logExercises.push({ name, sets: [{ reps: 10, weight: 0 }] });
+        logExercises.push({ name, sets: [{ reps: 0, weight: 0 }] });
         inp.value = '';
         list.innerHTML = buildExercisesHTML();
         bindExerciseEvents();
