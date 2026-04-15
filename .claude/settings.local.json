@@ -1,0 +1,38 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(brew list:*)",
+      "Bash(find \"/Users/swarupsarkar/Downloads/website tarot/brahamaj\" -name \"*.php\" -exec basename {})",
+      "Bash(find \"/Users/swarupsarkar/Downloads/website tarot/brahamaj\" -name \"*.css\" -exec basename {})",
+      "Bash(find \"/Users/swarupsarkar/Downloads/website tarot/brahamaj\" -name \"*.js\" -exec basename {})",
+      "Bash(sed -i '' 's|https://youtube.com/@VoiceOfBrahmaJByPriyancaaJain|https://youtube.com/@voiceofbrahamajpriyancaajain|g' /Users/swarupsarkar/Downloads/nnnn.html)",
+      "Bash(sed -i '' 's|https://instagram.com/priyancaajain|https://www.instagram.com/voiceofbrahamaj/|g' /Users/swarupsarkar/Downloads/nnnn.html)",
+      "Bash(sed -i '' 's|https://www.instagram.com/brahamaj|https://www.instagram.com/voiceofbrahamaj/|g' /Users/swarupsarkar/Downloads/nnnn.html)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(mkdir -p ~/linkedin-outreach/templates ~/linkedin-outreach/data/logs)",
+      "Read(//Users/swarupsarkar/**)",
+      "Bash(python3 -m py_compile config.py state.py logger.py session.py scraper.py evaluator.py emailer.py dm_handler.py main.py)",
+      "Bash(source venv/bin/activate)",
+      "Bash(python main.py --dry-run)",
+      "Bash(python -c \"from dotenv import load_dotenv; load_dotenv\\(\\); import os; print\\(bool\\(os.getenv\\(''ANTHROPIC_API_KEY''\\)\\)\\)\")",
+      "Bash(python -c \"from dotenv import load_dotenv; from pathlib import Path; load_dotenv\\(Path\\(''/Users/swarupsarkar/linkedin-outreach/.env''\\)\\); import os; print\\(bool\\(os.getenv\\(''ANTHROPIC_API_KEY''\\)\\)\\)\")",
+      "Bash(python -c \"from pathlib import Path; from dotenv import load_dotenv; load_dotenv\\(Path\\(''/Users/swarupsarkar/linkedin-outreach/.env''\\)\\); import os; key=os.getenv\\(''ANTHROPIC_API_KEY'',''''\\); print\\(repr\\(key[:20]\\)\\)\")",
+      "Bash(python3 -c \":*)",
+      "Bash(python -c \":*)",
+      "Bash(pip install:*)",
+      "Bash(plutil -lint ~/linkedin-outreach/com.linkedin-outreach.plist)",
+      "Bash(plutil -lint ~/Library/LaunchAgents/com.linkedin-outreach.plist)",
+      "Bash(launchctl list:*)",
+      "Bash(ls /Users/swarupsarkar/linkedin-outreach/*.py)",
+      "Bash(npm list:*)",
+      "Bash(export PATH=\"$PATH:/usr/local/bin:/opt/homebrew/bin\")",
+      "Bash(python3 -c \"import docx; print\\(''ok''\\)\")",
+      "Bash(python3 -m pip install python-docx -q)",
+      "Bash(python3:*)",
+      "Bash(python scripts/office/unpack.py \"/Users/swarupsarkar/Downloads/website tarot/AIM Foundation - Website Audit & Action Plan.docx\" /tmp/aim_unpack/)",
+      "Bash(pip3 install:*)",
+      "Bash(find /Users/swarupsarkar -name linkedin* -o -name *outreach* -o -name *scraper*)",
+      "Bash(find /Users/swarupsarkar -name *.py -path *linkedin*)"
+    ]
+  }
+}
