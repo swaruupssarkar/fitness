@@ -684,6 +684,44 @@ body.sidebar-collapsed #main-content {
 }
 .btn-add-set:hover { background: rgba(108,99,255,0.18); }
 
+.exercise-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.btn-del-exercise {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px; height: 30px;
+  border-radius: 6px;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid transparent;
+  transition: all var(--transition);
+}
+.btn-del-exercise:hover { background: rgba(239,68,68,0.12); color: #f87171; border-color: rgba(239,68,68,0.3); }
+
+/* Add exercise row */
+.add-exercise-row {
+  display: flex;
+  gap: 10px;
+  margin: 12px 0 20px;
+  align-items: center;
+}
+.add-exercise-row .input {
+  flex: 1;
+  min-width: 0;
+}
+@media (max-width: 768px) {
+  .add-exercise-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .add-exercise-row .btn { width: 100%; }
+}
+
 .sets-table { display: flex; flex-direction: column; gap: 8px; }
 .sets-header {
   display: grid;

@@ -134,6 +134,12 @@ const Logger = (() => {
         <div class="gym-time-duration" id="gym-duration-display">—</div>
       </div>
       <div id="exercise-list">${buildExercisesHTML()}</div>
+
+      <div class="add-exercise-row">
+        <input type="text" id="new-exercise-name" class="input" placeholder="Exercise name e.g. Bench Press" autocomplete="off">
+        <button class="btn btn-outline" id="btn-add-exercise">+ Add Exercise</button>
+      </div>
+
       <div class="log-actions">
         <button class="btn btn-primary btn-lg" id="btn-save">
           ${isEdit ? 'Update Workout' : 'Save Workout'}
@@ -199,7 +205,12 @@ const Logger = (() => {
         <div class="exercise-header">
           <span class="drag-handle ex-log-drag" title="Drag to reorder exercise">⠿</span>
           <h3 class="exercise-name">${ex.name}</h3>
-          <button class="btn-add-set" data-ei="${ei}">+ Set</button>
+          <div class="exercise-header-actions">
+            <button class="btn-add-set" data-ei="${ei}">+ Set</button>
+            <button class="btn-del-exercise" data-ei="${ei}" title="Delete exercise">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+            </button>
+          </div>
         </div>
         <div class="sets-table">
           <div class="sets-header"><span></span><span>Set</span><span>Reps</span><span>Weight (kg)</span><span></span><span></span></div>
@@ -259,6 +270,34 @@ const Logger = (() => {
         if (logExercises[ei].sets.length > 1) { logExercises[ei].sets.splice(si, 1); rebind(); }
       });
     });
+
+    list.querySelectorAll('.btn-del-exercise').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const ei = +btn.dataset.ei;
+        if (logExercises.length <= 1) { App.toast('At least one exercise required.', 'error'); return; }
+        logExercises.splice(ei, 1);
+        rebind();
+      });
+    });
+
+    // Add exercise button (outside the list, bind once)
+    const addBtn = document.getElementById('btn-add-exercise');
+    if (addBtn && !addBtn._bound) {
+      addBtn._bound = true;
+      addBtn.addEventListener('click', () => {
+        const inp = document.getElementById('new-exercise-name');
+        const name = inp.value.trim();
+        if (!name) { App.toast('Enter an exercise name.', 'error'); return; }
+        logExercises.push({ name, sets: [{ reps: 10, weight: 0 }] });
+        inp.value = '';
+        list.innerHTML = buildExercisesHTML();
+        bindExerciseEvents();
+        list.lastElementChild?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      document.getElementById('new-exercise-name')?.addEventListener('keydown', e => {
+        if (e.key === 'Enter') addBtn.click();
+      });
+    }
 
     bindLogDragDrop(list, rebind);
   }
