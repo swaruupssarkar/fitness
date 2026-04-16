@@ -816,9 +816,10 @@ const App = (() => {
 
     function buildList(list) {
       return list.map(log => {
-            const vol  = log.exercises.reduce((t, ex) =>
-              t + ex.sets.reduce((s, set) => s + set.reps * set.weight, 0), 0);
-            const sets = log.exercises.reduce((t, ex) => t + ex.sets.length, 0);
+            // Only count sets with actual weight for volume/stats display
+            const completedSets = log.exercises.flatMap(ex => ex.sets.filter(s => s.weight > 0));
+            const vol  = completedSets.reduce((t, s) => t + s.reps * s.weight, 0);
+            const sets = completedSets.length;
             const dateStr = new Date(log.date + 'T00:00:00').toLocaleDateString('en-US',
               { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
             return `
@@ -840,16 +841,22 @@ const App = (() => {
                   <span>${Metrics.formatVolume(vol)} kg volume</span>
                 </div>
                 <div class="history-detail hidden" id="detail-${log.id}">
-                  ${log.exercises.map(ex => `
-                    <div class="history-exercise">
-                      <strong>${esc(ex.name)}</strong>
-                      <div class="history-sets">
-                        ${ex.sets.map((s, i) =>
-                          `<span class="set-chip">Set ${i+1}: ${s.reps} × ${s.weight} kg</span>`
-                        ).join('')}
-                      </div>
-                    </div>
-                  `).join('')}
+                  ${log.exercises.map(ex => {
+                    const doneSets = ex.sets.filter(s => s.weight > 0);
+                    return doneSets.length ? `
+                      <div class="history-exercise">
+                        <strong>${esc(ex.name)}</strong>
+                        <div class="history-sets">
+                          ${doneSets.map((s, i) =>
+                            `<span class="set-chip">Set ${i+1}: ${s.reps} × ${s.weight} kg</span>`
+                          ).join('')}
+                        </div>
+                      </div>` :
+                      `<div class="history-exercise">
+                        <strong>${esc(ex.name)}</strong>
+                        <span class="set-chip" style="opacity:0.5">No weight logged</span>
+                      </div>`;
+                  }).join('')}
                 </div>
               </div>`;
       }).join('');

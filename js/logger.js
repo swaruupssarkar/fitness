@@ -412,13 +412,18 @@ const Logger = (() => {
     document.querySelectorAll('.weight-input').forEach(inp =>
       logExercises[+inp.dataset.ei].sets[+inp.dataset.si].weight = parseFloat(inp.value) || 0);
 
+    // Keep any set where reps have been entered (weight can be 0/empty —
+    // the user may fill it in on a later edit). Only fully blank sets (reps=0) are dropped.
     const exercises = logExercises
-      .map(ex => ({ ...ex, sets: ex.sets.filter(s => s.reps > 0 && s.weight > 0) }))
+      .map(ex => ({ ...ex, sets: ex.sets.filter(s => s.reps > 0) }))
       .filter(ex => ex.sets.length > 0);
 
-    if (!exercises.length) {
+    // "No data at all" check: require at least one set with BOTH reps AND weight
+    // before treating the log as empty / deletable.
+    const hasRealData = exercises.some(ex => ex.sets.some(s => s.weight > 0));
+
+    if (!hasRealData && !exercises.length) {
       if (editLogId) {
-        // Editing existing log with all exercises removed — delete the log so day goes back to red
         Storage.deleteLog(editLogId);
         editLogId = null;
         App.toast('Workout removed — day marked as missed.', 'success');
@@ -426,6 +431,10 @@ const Logger = (() => {
       } else {
         App.toast('No sets recorded yet!', 'error');
       }
+      return;
+    }
+    if (!exercises.length) {
+      App.toast('No sets recorded yet!', 'error');
       return;
     }
 
