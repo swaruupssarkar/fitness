@@ -1,15 +1,13 @@
 /* ─── Charts ─ Progress view with Chart.js ───────────────────── */
 const Charts = (() => {
   let progressChart    = null;
-  let volumeChart      = null;
   let bodyWeightChart  = null;
   let durationChart    = null;
 
-  let chartOrder = ['progress', 'volume', 'bodyweight', 'duration'];
+  let chartOrder = ['progress', 'bodyweight', 'duration'];
 
   const CHART_CONFIG = {
     progress:   { title: 'Max Weight Over Time (kg)',        canvasId: 'chart-progress'   },
-    volume:     { title: 'Weekly Total Volume (kg)',         canvasId: 'chart-volume'     },
     bodyweight: { title: 'Body Weight Over Time (kg)',       canvasId: 'chart-bodyweight' },
     duration:   { title: 'Session Duration Over Time (min)', canvasId: 'chart-duration'  },
   };
@@ -105,7 +103,6 @@ const Charts = (() => {
 
   function drawAllCharts() {
     drawProgressChart(document.getElementById('ex-select')?.value || '');
-    drawVolumeChart();
     drawBodyWeightChart();
     drawDurationChart();
   }
@@ -117,8 +114,8 @@ const Charts = (() => {
     if (srcIdx < 0 || tgtIdx < 0) return;
     chartOrder.splice(srcIdx, 1);
     chartOrder.splice(tgtIdx, 0, srcKey);
-    [progressChart, volumeChart, bodyWeightChart, durationChart].forEach(c => { try { c?.destroy(); } catch {} });
-    progressChart = volumeChart = bodyWeightChart = durationChart = null;
+    [progressChart, bodyWeightChart, durationChart].forEach(c => { try { c?.destroy(); } catch {} });
+    progressChart = bodyWeightChart = durationChart = null;
     buildChartsContainer();
     drawAllCharts();
     bindChartDragDrop();
@@ -232,38 +229,6 @@ const Charts = (() => {
             tooltip: {
               ...CHART_DEFAULTS.plugins.tooltip,
               callbacks: { label: ctx => ` ${ctx.parsed.y} kg` },
-            },
-          },
-        },
-      }
-    );
-  }
-
-  function drawVolumeChart() {
-    const weeks = Metrics.getWeeklyVolumeHistory(8);
-    if (volumeChart) volumeChart.destroy();
-    volumeChart = new Chart(
-      document.getElementById('chart-volume').getContext('2d'),
-      {
-        type: 'bar',
-        data: {
-          labels: weeks.map(w => w.label),
-          datasets: [{
-            label: 'Volume (kg)',
-            data: weeks.map(w => w.volume),
-            backgroundColor: 'rgba(34,197,94,0.65)',
-            borderColor: '#22c55e',
-            borderWidth: 1,
-            borderRadius: 5,
-          }],
-        },
-        options: {
-          ...CHART_DEFAULTS,
-          plugins: {
-            ...CHART_DEFAULTS.plugins,
-            tooltip: {
-              ...CHART_DEFAULTS.plugins.tooltip,
-              callbacks: { label: ctx => ` ${ctx.parsed.y.toLocaleString()} kg` },
             },
           },
         },
