@@ -1,0 +1,73 @@
+{
+  "nodes": [
+    {
+      "id": "users_swarupsarkar_downloads_website_tarot_js_logger_js",
+      "label": "logger.js",
+      "file_type": "code",
+      "source_file": "/Users/swarupsarkar/Downloads/website tarot/js/logger.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "users_swarupsarkar_downloads_website_tarot_js_metrics_js",
+      "label": "metrics.js",
+      "file_type": "code",
+      "source_file": "/Users/swarupsarkar/Downloads/website tarot/js/metrics.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "users_swarupsarkar_downloads_website_tarot_js_auth_js",
+      "label": "auth.js",
+      "file_type": "code",
+      "source_file": "/Users/swarupsarkar/Downloads/website tarot/js/auth.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "users_swarupsarkar_downloads_website_tarot_js_charts_js",
+      "label": "charts.js",
+      "file_type": "code",
+      "source_file": "/Users/swarupsarkar/Downloads/website tarot/js/charts.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "users_swarupsarkar_downloads_website_tarot_js_plans_js",
+      "label": "plans.js",
+      "file_type": "code",
+      "source_file": "/Users/swarupsarkar/Downloads/website tarot/js/plans.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "users_swarupsarkar_downloads_website_tarot_js_app_js",
+      "label": "app.js",
+      "file_type": "code",
+      "source_file": "/Users/swarupsarkar/Downloads/website tarot/js/app.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_esc",
+      "label": "esc()",
+      "file_type": "code",
+      "source_file": "/Users/swarupsarkar/Downloads/website tarot/js/app.js",
+      "source_location": "L2"
+    },
+    {
+      "id": "users_swarupsarkar_downloads_website_tarot_js_storage_js",
+      "label": "storage.js",
+      "file_type": "code",
+      "source_file": "/Users/swarupsarkar/Downloads/website tarot/js/storage.js",
+      "source_location": "L1"
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_swarupsarkar_downloads_website_tarot_js_app_js",
+      "target": "app_esc",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/swarupsarkar/Downloads/website tarot/js/app.js",
+      "source_location": "L2",
+      "weight": 1.0
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

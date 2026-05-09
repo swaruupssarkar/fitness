@@ -1,0 +1,5 @@
+CLAUDE.md
+css/deleteme.txt
+js/deleteme.txt
+img/deleteme.txt
+graphify-out/GRAPH_REPORT.md

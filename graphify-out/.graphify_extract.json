@@ -1,0 +1,2591 @@
+{
+  "nodes": [
+    {
+      "id": "users_swarupsarkar_downloads_website_tarot_js_logger_js",
+      "label": "logger.js",
+      "file_type": "code",
+      "source_file": "/Users/swarupsarkar/Downloads/website tarot/js/logger.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "users_swarupsarkar_downloads_website_tarot_js_metrics_js",
+      "label": "metrics.js",
+      "file_type": "code",
+      "source_file": "/Users/swarupsarkar/Downloads/website tarot/js/metrics.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "users_swarupsarkar_downloads_website_tarot_js_auth_js",
+      "label": "auth.js",
+      "file_type": "code",
+      "source_file": "/Users/swarupsarkar/Downloads/website tarot/js/auth.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "users_swarupsarkar_downloads_website_tarot_js_charts_js",
+      "label": "charts.js",
+      "file_type": "code",
+      "source_file": "/Users/swarupsarkar/Downloads/website tarot/js/charts.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "users_swarupsarkar_downloads_website_tarot_js_plans_js",
+      "label": "plans.js",
+      "file_type": "code",
+      "source_file": "/Users/swarupsarkar/Downloads/website tarot/js/plans.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "users_swarupsarkar_downloads_website_tarot_js_app_js",
+      "label": "app.js",
+      "file_type": "code",
+      "source_file": "/Users/swarupsarkar/Downloads/website tarot/js/app.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_esc",
+      "label": "esc()",
+      "file_type": "code",
+      "source_file": "/Users/swarupsarkar/Downloads/website tarot/js/app.js",
+      "source_location": "L2"
+    },
+    {
+      "id": "users_swarupsarkar_downloads_website_tarot_js_storage_js",
+      "label": "storage.js",
+      "file_type": "code",
+      "source_file": "/Users/swarupsarkar/Downloads/website tarot/js/storage.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "auth_Auth",
+      "label": "Auth Module",
+      "file_type": "code",
+      "source_file": "js/auth.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "auth_signInWithGoogle",
+      "label": "signInWithGoogle",
+      "file_type": "code",
+      "source_file": "js/auth.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "auth_handleRedirectResult",
+      "label": "handleRedirectResult",
+      "file_type": "code",
+      "source_file": "js/auth.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "auth_signOut",
+      "label": "signOut",
+      "file_type": "code",
+      "source_file": "js/auth.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "auth_onAuthReady",
+      "label": "onAuthReady",
+      "file_type": "code",
+      "source_file": "js/auth.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "auth_getUser",
+      "label": "getUser",
+      "file_type": "code",
+      "source_file": "js/auth.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "auth_getDb",
+      "label": "getDb",
+      "file_type": "code",
+      "source_file": "js/auth.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "auth_firebaseConfig",
+      "label": "Firebase Config",
+      "file_type": "code",
+      "source_file": "js/auth.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "storage_Storage",
+      "label": "Storage Module",
+      "file_type": "code",
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "storage_getPlans",
+      "label": "getPlans",
+      "file_type": "code",
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "storage_savePlans",
+      "label": "savePlans",
+      "file_type": "code",
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "storage_getPlanById",
+      "label": "getPlanById",
+      "file_type": "code",
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "storage_upsertPlan",
+      "label": "upsertPlan",
+      "file_type": "code",
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "storage_deletePlan",
+      "label": "deletePlan",
+      "file_type": "code",
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "storage_getLogs",
+      "label": "getLogs",
+      "file_type": "code",
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "storage_addLog",
+      "label": "addLog",
+      "file_type": "code",
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "storage_deleteLog",
+      "label": "deleteLog",
+      "file_type": "code",
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "storage_updateLog",
+      "label": "updateLog",
+      "file_type": "code",
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "storage_getSettings",
+      "label": "getSettings",
+      "file_type": "code",
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "storage_updateSettings",
+      "label": "updateSettings",
+      "file_type": "code",
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "storage_init",
+      "label": "Storage.init",
+      "file_type": "code",
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "storage_localStorage",
+      "label": "LocalStorage Cache",
+      "file_type": "code",
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "storage_firestore",
+      "label": "Firestore Sync",
+      "file_type": "code",
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "plans_Plans",
+      "label": "Plans Module",
+      "file_type": "code",
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "plans_PREDEFINED",
+      "label": "Predefined Workout Plans",
+      "file_type": "code",
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "plans_ensureDefaults",
+      "label": "ensureDefaults",
+      "file_type": "code",
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "plans_getActivePlan",
+      "label": "getActivePlan",
+      "file_type": "code",
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "plans_setActivePlan",
+      "label": "setActivePlan",
+      "file_type": "code",
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "plans_createCustomPlan",
+      "label": "createCustomPlan",
+      "file_type": "code",
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "plans_updateCustomPlan",
+      "label": "updateCustomPlan",
+      "file_type": "code",
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "plans_deleteCustomPlan",
+      "label": "deleteCustomPlan",
+      "file_type": "code",
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "metrics_Metrics",
+      "label": "Metrics Module",
+      "file_type": "code",
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "metrics_getStreak",
+      "label": "getStreak",
+      "file_type": "code",
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "metrics_getWeeklyVolume",
+      "label": "getWeeklyVolume",
+      "file_type": "code",
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "metrics_getWeekTopLift",
+      "label": "getWeekTopLift",
+      "file_type": "code",
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "metrics_getTotalVolume",
+      "label": "getTotalVolume",
+      "file_type": "code",
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "metrics_getTotalWorkouts",
+      "label": "getTotalWorkouts",
+      "file_type": "code",
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "metrics_getMonthlyWorkoutCount",
+      "label": "getMonthlyWorkoutCount",
+      "file_type": "code",
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "metrics_getMonthlyWeightChange",
+      "label": "getMonthlyWeightChange",
+      "file_type": "code",
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "metrics_getActivityGrid",
+      "label": "getActivityGrid",
+      "file_type": "code",
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "metrics_getPRs",
+      "label": "getPRs",
+      "file_type": "code",
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "metrics_getExerciseHistory",
+      "label": "getExerciseHistory",
+      "file_type": "code",
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "metrics_getWeeklyVolumeHistory",
+      "label": "getWeeklyVolumeHistory",
+      "file_type": "code",
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "metrics_getAvgSessionDuration",
+      "label": "getAvgSessionDuration",
+      "file_type": "code",
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "metrics_getSessionDurationHistory",
+      "label": "getSessionDurationHistory",
+      "file_type": "code",
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "metrics_getBodyWeightHistory",
+      "label": "getBodyWeightHistory",
+      "file_type": "code",
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "metrics_getAllExerciseNames",
+      "label": "getAllExerciseNames",
+      "file_type": "code",
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "metrics_formatVolume",
+      "label": "formatVolume",
+      "file_type": "code",
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "logger_Logger",
+      "label": "Logger Module",
+      "file_type": "code",
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "logger_render",
+      "label": "Logger.render",
+      "file_type": "code",
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "logger_editLog",
+      "label": "editLog",
+      "file_type": "code",
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "logger_openForDate",
+      "label": "openForDate",
+      "file_type": "code",
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "logger_saveLog",
+      "label": "saveLog",
+      "file_type": "code",
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "logger_renderDayPicker",
+      "label": "renderDayPicker",
+      "file_type": "code",
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "logger_renderLogger",
+      "label": "renderLogger",
+      "file_type": "code",
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "logger_buildExercisesHTML",
+      "label": "buildExercisesHTML",
+      "file_type": "code",
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "logger_bindExerciseEvents",
+      "label": "bindExerciseEvents",
+      "file_type": "code",
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "logger_bindLogDragDrop",
+      "label": "bindLogDragDrop",
+      "file_type": "code",
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "charts_Charts",
+      "label": "Charts Module",
+      "file_type": "code",
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "charts_render",
+      "label": "Charts.render",
+      "file_type": "code",
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "charts_drawProgressChart",
+      "label": "drawProgressChart",
+      "file_type": "code",
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "charts_drawBodyWeightChart",
+      "label": "drawBodyWeightChart",
+      "file_type": "code",
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "charts_drawDurationChart",
+      "label": "drawDurationChart",
+      "file_type": "code",
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "charts_buildChartsContainer",
+      "label": "buildChartsContainer",
+      "file_type": "code",
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "charts_reorderCharts",
+      "label": "reorderCharts",
+      "file_type": "code",
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "charts_bindChartDragDrop",
+      "label": "bindChartDragDrop",
+      "file_type": "code",
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_App",
+      "label": "App Module",
+      "file_type": "code",
+      "source_file": "js/app.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_init",
+      "label": "App.init",
+      "file_type": "code",
+      "source_file": "js/app.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_renderDashboard",
+      "label": "renderDashboard",
+      "file_type": "code",
+      "source_file": "js/app.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_renderPlans",
+      "label": "renderPlans",
+      "file_type": "code",
+      "source_file": "js/app.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_renderHistory",
+      "label": "renderHistory",
+      "file_type": "code",
+      "source_file": "js/app.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_showView",
+      "label": "showView",
+      "file_type": "code",
+      "source_file": "js/app.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_navigate",
+      "label": "navigate",
+      "file_type": "code",
+      "source_file": "js/app.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_toast",
+      "label": "toast",
+      "file_type": "code",
+      "source_file": "js/app.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_requireAuth",
+      "label": "requireAuth",
+      "file_type": "code",
+      "source_file": "js/app.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_renderUserInfo",
+      "label": "renderUserInfo",
+      "file_type": "code",
+      "source_file": "js/app.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_renderGuestInfo",
+      "label": "renderGuestInfo",
+      "file_type": "code",
+      "source_file": "js/app.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_buildCalendar",
+      "label": "buildCalendar",
+      "file_type": "code",
+      "source_file": "js/app.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_buildMonthCalendar",
+      "label": "buildMonthCalendar",
+      "file_type": "code",
+      "source_file": "js/app.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_buildWeekCalendar",
+      "label": "buildWeekCalendar",
+      "file_type": "code",
+      "source_file": "js/app.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_bindCalendarEvents",
+      "label": "bindCalendarEvents",
+      "file_type": "code",
+      "source_file": "js/app.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_bindPlanEvents",
+      "label": "bindPlanEvents",
+      "file_type": "code",
+      "source_file": "js/app.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_renderDayBuilder",
+      "label": "renderDayBuilder",
+      "file_type": "code",
+      "source_file": "js/app.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_bindDragDrop",
+      "label": "bindDragDrop",
+      "file_type": "code",
+      "source_file": "js/app.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "app_initSidebar",
+      "label": "initSidebar",
+      "file_type": "code",
+      "source_file": "js/app.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "img_logo",
+      "label": "FitTrack Logo",
+      "file_type": "image",
+      "source_file": "img/logo.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "users_swarupsarkar_downloads_website_tarot_js_app_js",
+      "target": "app_esc",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/Users/swarupsarkar/Downloads/website tarot/js/app.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "storage_Storage",
+      "target": "auth_getUser",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "storage_Storage",
+      "target": "auth_getDb",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "storage_init",
+      "target": "storage_firestore",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "storage_init",
+      "target": "storage_localStorage",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "storage_savePlans",
+      "target": "storage_firestore",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "storage_savePlans",
+      "target": "storage_localStorage",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "storage_upsertPlan",
+      "target": "storage_firestore",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "storage_upsertPlan",
+      "target": "storage_localStorage",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "storage_addLog",
+      "target": "storage_firestore",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "storage_addLog",
+      "target": "storage_localStorage",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "storage_updateLog",
+      "target": "storage_firestore",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "storage_updateSettings",
+      "target": "storage_firestore",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "plans_ensureDefaults",
+      "target": "storage_getPlans",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "plans_ensureDefaults",
+      "target": "storage_savePlans",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "plans_ensureDefaults",
+      "target": "storage_getSettings",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "plans_ensureDefaults",
+      "target": "storage_updateSettings",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "plans_getActivePlan",
+      "target": "storage_getSettings",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "plans_getActivePlan",
+      "target": "storage_getPlanById",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "plans_getActivePlan",
+      "target": "storage_getPlans",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "plans_setActivePlan",
+      "target": "storage_updateSettings",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "plans_createCustomPlan",
+      "target": "storage_upsertPlan",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "plans_updateCustomPlan",
+      "target": "storage_getPlanById",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "plans_updateCustomPlan",
+      "target": "storage_upsertPlan",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "plans_deleteCustomPlan",
+      "target": "storage_getPlanById",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "plans_deleteCustomPlan",
+      "target": "storage_deletePlan",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "plans_deleteCustomPlan",
+      "target": "storage_getPlans",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "plans_deleteCustomPlan",
+      "target": "storage_updateSettings",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "metrics_getStreak",
+      "target": "storage_getLogs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "metrics_getWeeklyVolume",
+      "target": "storage_getLogs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "metrics_getWeekTopLift",
+      "target": "storage_getLogs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "metrics_getTotalVolume",
+      "target": "storage_getLogs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "metrics_getTotalWorkouts",
+      "target": "storage_getLogs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "metrics_getMonthlyWorkoutCount",
+      "target": "storage_getLogs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "metrics_getMonthlyWeightChange",
+      "target": "storage_getLogs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "metrics_getActivityGrid",
+      "target": "storage_getLogs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "metrics_getPRs",
+      "target": "storage_getLogs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "metrics_getExerciseHistory",
+      "target": "storage_getLogs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "metrics_getWeeklyVolumeHistory",
+      "target": "storage_getLogs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "metrics_getAvgSessionDuration",
+      "target": "storage_getLogs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "metrics_getSessionDurationHistory",
+      "target": "storage_getLogs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "metrics_getBodyWeightHistory",
+      "target": "storage_getLogs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "metrics_getAllExerciseNames",
+      "target": "storage_getLogs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_render",
+      "target": "plans_getActivePlan",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_editLog",
+      "target": "storage_getLogs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_editLog",
+      "target": "plans_getActivePlan",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_editLog",
+      "target": "app_showView",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_saveLog",
+      "target": "app_requireAuth",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_saveLog",
+      "target": "metrics_getPRs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_saveLog",
+      "target": "storage_addLog",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_saveLog",
+      "target": "storage_updateLog",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_saveLog",
+      "target": "storage_deleteLog",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_saveLog",
+      "target": "plans_getActivePlan",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_saveLog",
+      "target": "app_toast",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_saveLog",
+      "target": "app_navigate",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_openForDate",
+      "target": "plans_getActivePlan",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_openForDate",
+      "target": "app_showView",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_renderLogger",
+      "target": "storage_getLogs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_renderLogger",
+      "target": "storage_deleteLog",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_renderLogger",
+      "target": "app_navigate",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_renderLogger",
+      "target": "app_toast",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_bindExerciseEvents",
+      "target": "app_toast",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_bindExerciseEvents",
+      "target": "logger_buildExercisesHTML",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_bindExerciseEvents",
+      "target": "logger_bindLogDragDrop",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "charts_render",
+      "target": "metrics_getAllExerciseNames",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "charts_render",
+      "target": "charts_buildChartsContainer",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "charts_render",
+      "target": "charts_drawProgressChart",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "charts_render",
+      "target": "charts_drawBodyWeightChart",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "charts_render",
+      "target": "charts_drawDurationChart",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "charts_render",
+      "target": "charts_bindChartDragDrop",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "charts_drawProgressChart",
+      "target": "metrics_getExerciseHistory",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "charts_drawProgressChart",
+      "target": "metrics_getPRs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "charts_drawBodyWeightChart",
+      "target": "metrics_getBodyWeightHistory",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "charts_drawDurationChart",
+      "target": "metrics_getSessionDurationHistory",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "charts_reorderCharts",
+      "target": "charts_buildChartsContainer",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "charts_reorderCharts",
+      "target": "charts_drawProgressChart",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "charts_reorderCharts",
+      "target": "charts_drawBodyWeightChart",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "charts_reorderCharts",
+      "target": "charts_drawDurationChart",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "charts_reorderCharts",
+      "target": "charts_bindChartDragDrop",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_init",
+      "target": "auth_handleRedirectResult",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_init",
+      "target": "auth_onAuthReady",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_init",
+      "target": "auth_signInWithGoogle",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_init",
+      "target": "storage_init",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_init",
+      "target": "plans_ensureDefaults",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_init",
+      "target": "app_renderUserInfo",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_init",
+      "target": "app_renderGuestInfo",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_init",
+      "target": "app_showView",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_init",
+      "target": "app_initSidebar",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderDashboard",
+      "target": "plans_getActivePlan",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderDashboard",
+      "target": "metrics_getMonthlyWorkoutCount",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderDashboard",
+      "target": "metrics_getMonthlyWeightChange",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderDashboard",
+      "target": "metrics_getWeekTopLift",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderDashboard",
+      "target": "metrics_getTotalWorkouts",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderDashboard",
+      "target": "metrics_getAvgSessionDuration",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderDashboard",
+      "target": "storage_getLogs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderDashboard",
+      "target": "auth_getUser",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderDashboard",
+      "target": "app_buildCalendar",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderDashboard",
+      "target": "app_bindCalendarEvents",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderDashboard",
+      "target": "logger_editLog",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_buildCalendar",
+      "target": "app_buildMonthCalendar",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_buildCalendar",
+      "target": "app_buildWeekCalendar",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_buildMonthCalendar",
+      "target": "storage_getLogs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_buildWeekCalendar",
+      "target": "storage_getLogs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_bindCalendarEvents",
+      "target": "logger_editLog",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_bindCalendarEvents",
+      "target": "logger_openForDate",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderPlans",
+      "target": "storage_getPlans",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderPlans",
+      "target": "storage_getSettings",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderPlans",
+      "target": "app_bindPlanEvents",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_bindPlanEvents",
+      "target": "plans_setActivePlan",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_bindPlanEvents",
+      "target": "plans_deleteCustomPlan",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_bindPlanEvents",
+      "target": "plans_createCustomPlan",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_bindPlanEvents",
+      "target": "storage_getPlanById",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_bindPlanEvents",
+      "target": "storage_upsertPlan",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_bindPlanEvents",
+      "target": "app_requireAuth",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_bindPlanEvents",
+      "target": "app_toast",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_bindPlanEvents",
+      "target": "app_renderPlans",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_bindPlanEvents",
+      "target": "app_renderDayBuilder",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderHistory",
+      "target": "storage_getLogs",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderHistory",
+      "target": "metrics_formatVolume",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderHistory",
+      "target": "storage_deleteLog",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderHistory",
+      "target": "logger_editLog",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderHistory",
+      "target": "app_requireAuth",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderHistory",
+      "target": "app_toast",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_requireAuth",
+      "target": "auth_getUser",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderUserInfo",
+      "target": "auth_getUser",
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderUserInfo",
+      "target": "auth_signOut",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderUserInfo",
+      "target": "img_logo",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderDayBuilder",
+      "target": "app_bindDragDrop",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_showView",
+      "target": "logger_render",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_showView",
+      "target": "charts_render",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_showView",
+      "target": "app_renderDashboard",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_showView",
+      "target": "app_renderPlans",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_showView",
+      "target": "app_renderHistory",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_buildExercisesHTML",
+      "target": "app_esc",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderDashboard",
+      "target": "app_esc",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderPlans",
+      "target": "app_esc",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_renderHistory",
+      "target": "app_esc",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_buildMonthCalendar",
+      "target": "app_esc",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_buildWeekCalendar",
+      "target": "app_esc",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "auth_signOut",
+      "target": "storage_localStorage",
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/auth.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "storage_Storage",
+      "target": "storage_localStorage",
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "storage_Storage",
+      "target": "storage_firestore",
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/storage.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "plans_PREDEFINED",
+      "target": "plans_ensureDefaults",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/plans.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "metrics_Metrics",
+      "target": "storage_Storage",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "js/metrics.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_Logger",
+      "target": "storage_Storage",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "logger_Logger",
+      "target": "plans_Plans",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "js/logger.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "charts_Charts",
+      "target": "metrics_Metrics",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "js/charts.js",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "app_App",
+      "target": "auth_Auth",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "js/app.js",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "fittrack_core_modules",
+      "label": "FitTrack Core Module System",
+      "nodes": [
+        "auth_Auth",
+        "storage_Storage",
+        "plans_Plans",
+        "metrics_Metrics",
+        "logger_Logger",
+        "charts_Charts",
+        "app_App"
+      ],
+      "relation": "form",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "js/app.js"
+    },
+    {
+      "id": "storage_dual_persistence",
+      "label": "Dual Persistence Layer (LocalStorage + Firestore)",
+      "nodes": [
+        "storage_Storage",
+        "storage_localStorage",
+        "storage_firestore",
+        "auth_getUser",
+        "auth_getDb"
+      ],
+      "relation": "implement",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/storage.js"
+    },
+    {
+      "id": "workout_log_flow",
+      "label": "Workout Logging Flow",
+      "nodes": [
+        "logger_render",
+        "logger_renderDayPicker",
+        "logger_renderLogger",
+        "logger_saveLog",
+        "storage_addLog",
+        "storage_updateLog",
+        "metrics_getPRs"
+      ],
+      "relation": "participate_in",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/logger.js"
+    },
+    {
+      "id": "dashboard_metrics_display",
+      "label": "Dashboard Metrics Display",
+      "nodes": [
+        "app_renderDashboard",
+        "metrics_getMonthlyWorkoutCount",
+        "metrics_getMonthlyWeightChange",
+        "metrics_getWeekTopLift",
+        "metrics_getTotalWorkouts",
+        "metrics_getAvgSessionDuration"
+      ],
+      "relation": "participate_in",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js"
+    },
+    {
+      "id": "progress_charts_flow",
+      "label": "Progress Charts Rendering Flow",
+      "nodes": [
+        "charts_render",
+        "charts_drawProgressChart",
+        "charts_drawBodyWeightChart",
+        "charts_drawDurationChart",
+        "metrics_getExerciseHistory",
+        "metrics_getBodyWeightHistory",
+        "metrics_getSessionDurationHistory"
+      ],
+      "relation": "participate_in",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/charts.js"
+    },
+    {
+      "id": "auth_flow",
+      "label": "Authentication and Session Boot Flow",
+      "nodes": [
+        "app_init",
+        "auth_signInWithGoogle",
+        "auth_handleRedirectResult",
+        "auth_onAuthReady",
+        "storage_init",
+        "app_renderUserInfo",
+        "app_renderGuestInfo",
+        "plans_ensureDefaults"
+      ],
+      "relation": "participate_in",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/app.js"
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}
