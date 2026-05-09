@@ -6,6 +6,69 @@ const Logger = (() => {
   let _presetDate        = null;   // date string pre-set from calendar tap
   let editDeletedExercises = new Set(); // exercises explicitly deleted during edit
 
+  // ── Exercise name autocomplete ───────────────────────────────
+  function getExerciseSuggestions() {
+    const names = new Set();
+    Storage.getPlans().forEach(p =>
+      p.days.forEach(d => d.exercises.forEach(ex => names.add(ex.name)))
+    );
+    Storage.getLogs().forEach(l =>
+      l.exercises.forEach(ex => names.add(ex.name))
+    );
+    return [...names].sort((a, b) => a.localeCompare(b));
+  }
+
+  function attachSuggest(inp) {
+    // Create a dropdown sibling inside the same relative wrapper
+    const wrap = inp.closest('.exercise-suggest-wrap') || inp.parentElement;
+    let dropdown = wrap.querySelector('.exercise-suggest-list');
+    if (!dropdown) {
+      dropdown = document.createElement('ul');
+      dropdown.className = 'exercise-suggest-list';
+      dropdown.hidden = true;
+      wrap.appendChild(dropdown);
+    }
+
+    function show(q) {
+      const lq = q.toLowerCase();
+      const matches = q ? getExerciseSuggestions().filter(n => n.toLowerCase().includes(lq)) : [];
+      if (!matches.length) { dropdown.hidden = true; return; }
+      dropdown.innerHTML = matches.map(n =>
+        `<li class="exercise-suggest-item" tabindex="-1" data-name="${esc(n)}">${esc(n)}</li>`
+      ).join('');
+      dropdown.hidden = false;
+    }
+
+    function pick(name) {
+      inp.value = name;
+      dropdown.hidden = true;
+      // fire change so logExercises stays in sync
+      inp.dispatchEvent(new Event('change'));
+    }
+
+    inp.addEventListener('input', () => show(inp.value.trim()));
+    inp.addEventListener('keydown', e => {
+      if (e.key === 'Escape')   { dropdown.hidden = true; return; }
+      if (e.key === 'ArrowDown' && !dropdown.hidden) {
+        e.preventDefault(); dropdown.querySelector('li')?.focus();
+      }
+    });
+    inp.addEventListener('blur', () => setTimeout(() => { dropdown.hidden = true; }, 150));
+
+    dropdown.addEventListener('keydown', e => {
+      if (e.key === 'ArrowDown') { e.preventDefault(); e.target.nextElementSibling?.focus(); }
+      if (e.key === 'ArrowUp')   { e.preventDefault(); (e.target.previousElementSibling || inp).focus(); }
+      if (e.key === 'Enter')     { pick(e.target.dataset.name); inp.focus(); }
+      if (e.key === 'Escape')    { dropdown.hidden = true; inp.focus(); }
+    });
+    dropdown.addEventListener('mousedown', e => {
+      const item = e.target.closest('.exercise-suggest-item');
+      if (!item) return;
+      e.preventDefault();
+      pick(item.dataset.name);
+    });
+  }
+
   function render() {
     editLogId = null;
     const el   = document.getElementById('view-log');
@@ -65,6 +128,11 @@ const Logger = (() => {
     App.showView('log', true);
   }
 
+  function findExistingLogForDay(date, dayName) {
+    if (!date || !dayName) return null;
+    return Storage.getLogs().find(l => l.date === date && l.dayName === dayName) || null;
+  }
+
   /* ── Step 1: pick a day ─────────────────────────────────────── */
   function renderDayPicker(el, plan) {
     const todayDow = new Date().getDay(); // 0=Sun … 6=Sat
@@ -84,20 +152,37 @@ const Logger = (() => {
             <span class="day-exercises">${day.exercises.length} exercises</span>
           </button>`;
         }).join('')}
+        <button class="day-card day-card-custom" data-custom="1">
+          <span class="day-custom-icon">+</span>
+          <span class="day-name">Custom Workout</span>
+          <span class="day-exercises">Start from scratch</span>
+        </button>
       </div>`;
 
-    el.querySelectorAll('.day-card').forEach(btn => {
+    el.querySelectorAll('.day-card:not([data-custom])').forEach(btn => {
       btn.addEventListener('click', () => {
         const day = plan.days[parseInt(btn.dataset.idx)];
+        const preset = _presetDate;
+        const logDate = preset || new Date().toISOString().slice(0, 10);
+        const existing = findExistingLogForDay(logDate, day.name);
+        _presetDate = null;
+        if (existing) { editLog(existing.id); return; }
+
         selectedDay  = day;
         logExercises = day.exercises.map(ex => ({
           name: ex.name,
           sets: Array.from({ length: ex.defaultSets }, () => ({ reps: ex.defaultReps, weight: 0 })),
         }));
-        const preset = _presetDate;
-        _presetDate = null;
         renderLogger(el, plan, preset || undefined);
       });
+    });
+
+    el.querySelector('.day-card-custom').addEventListener('click', () => {
+      selectedDay  = { name: 'Custom Workout' };
+      logExercises = [{ name: '', sets: [{ reps: 0, weight: 0 }] }];
+      const preset = _presetDate;
+      _presetDate = null;
+      renderLogger(el, null, preset || undefined);
     });
   }
 
@@ -113,6 +198,13 @@ const Logger = (() => {
         <h1>${isEdit ? 'Edit: ' : ''}${selectedDay.name}</h1>
         ${plan ? `<p class="subtitle">${plan.name}</p>` : ''}
       </div>
+      ${!plan ? `
+      <div class="log-date-row">
+        <label class="log-date-label" for="log-session-name">Session Name</label>
+        <input type="text" id="log-session-name" class="input log-date-input"
+               value="${esc(selectedDay.name === 'Custom Workout' ? '' : selectedDay.name)}"
+               placeholder="e.g. Push Day, Chest & Tricep…">
+      </div>` : ''}
       <div class="log-date-row">
         <label class="log-date-label" for="log-date">Workout Date</label>
         <input type="date" id="log-date" class="input log-date-input"
@@ -126,12 +218,12 @@ const Logger = (() => {
       </div>
       <div class="gym-time-row">
         <div class="gym-time-field">
-          <label class="log-date-label" for="log-time-in">🏋️ Gym In</label>
+          <label class="log-date-label" for="log-time-in">Gym In</label>
           <input type="time" id="log-time-in" class="input log-date-input"
                  value="${isEdit && Storage.getLogs().find(l=>l.id===editLogId)?.timeIn || ''}">
         </div>
         <div class="gym-time-field">
-          <label class="log-date-label" for="log-time-out">🚪 Gym Out</label>
+          <label class="log-date-label" for="log-time-out">Gym Out</label>
           <input type="time" id="log-time-out" class="input log-date-input"
                  value="${isEdit && Storage.getLogs().find(l=>l.id===editLogId)?.timeOut || ''}">
         </div>
@@ -141,7 +233,10 @@ const Logger = (() => {
       <div id="exercise-list">${buildExercisesHTML()}</div>
 
       <div class="add-exercise-row">
-        <input type="text" id="new-exercise-name" class="input" placeholder="Exercise name e.g. Bench Press" autocomplete="off">
+        <div class="exercise-suggest-wrap">
+          <input type="text" id="new-exercise-name" class="input" placeholder="Exercise name e.g. Bench Press" autocomplete="off">
+          <ul id="exercise-suggest-list" class="exercise-suggest-list" hidden></ul>
+        </div>
         <button class="btn btn-outline" id="btn-add-exercise">+ Add Exercise</button>
       </div>
 
@@ -154,8 +249,16 @@ const Logger = (() => {
 
     document.getElementById('btn-back').addEventListener('click', () => {
       if (isEdit) { editLogId = null; App.navigate('dashboard'); }
-      else renderDayPicker(el, plan);
+      else renderDayPicker(el, plan || Plans.getActivePlan());
     });
+
+    const sessionNameInp = document.getElementById('log-session-name');
+    if (sessionNameInp) {
+      const h1 = el.querySelector('.view-header h1');
+      sessionNameInp.addEventListener('input', () => {
+        if (h1) h1.textContent = sessionNameInp.value.trim() || 'Custom Workout';
+      });
+    }
     document.getElementById('btn-save').addEventListener('click', saveLog);
 
     // Snapshot original state for reset
@@ -221,7 +324,10 @@ const Logger = (() => {
       <div class="exercise-card" data-ei="${ei}">
         <div class="exercise-header">
           <span class="drag-handle ex-log-drag" title="Drag to reorder exercise">⠿</span>
-          <h3 class="exercise-name">${esc(ex.name)}</h3>
+          <div class="exercise-suggest-wrap exercise-name-wrap">
+            <input type="text" class="input exercise-name-input" data-ei="${ei}"
+                   value="${esc(ex.name)}" placeholder="Exercise name">
+          </div>
           <div class="exercise-header-actions">
             <button class="btn-add-set" data-ei="${ei}">+ Set</button>
             <button class="btn-del-exercise" data-ei="${ei}" title="Delete exercise">
@@ -255,6 +361,12 @@ const Logger = (() => {
 
     function rebind() { list.innerHTML = buildExercisesHTML(); bindExerciseEvents(); }
 
+    list.querySelectorAll('.exercise-name-input').forEach(inp => {
+      inp.addEventListener('change', () => {
+        logExercises[+inp.dataset.ei].name = inp.value.trim();
+      });
+      attachSuggest(inp);
+    });
     list.querySelectorAll('.reps-input').forEach(inp => {
       inp.addEventListener('change', () => {
         logExercises[+inp.dataset.ei].sets[+inp.dataset.si].reps = parseInt(inp.value) || 0;
@@ -312,9 +424,18 @@ const Logger = (() => {
         bindExerciseEvents();
         list.lastElementChild?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
-      document.getElementById('new-exercise-name')?.addEventListener('keydown', e => {
+      const inp2 = document.getElementById('new-exercise-name');
+      // For the add-row input, picking a suggestion should immediately add the exercise
+      inp2.addEventListener('keydown', e => {
         if (e.key === 'Enter') addBtn.click();
       });
+      // Patch pick behaviour: after attachSuggest picks a name, auto-submit
+      const _origDispatch = inp2.dispatchEvent.bind(inp2);
+      attachSuggest(inp2);
+      // Override: when a suggestion is picked in the add-row, also click Add
+      const addRowDrop = inp2.closest('.exercise-suggest-wrap');
+      addRowDrop?.querySelector('.exercise-suggest-list')
+        ?.addEventListener('mousedown', () => { setTimeout(() => addBtn.click(), 0); });
     }
 
     bindLogDragDrop(list, rebind);
@@ -323,7 +444,7 @@ const Logger = (() => {
   function bindLogDragDrop(list, rebind) {
     let dragSrcEi = null, dragSrcSi = null;
 
-    // ── Exercise-level drag/drop ─────────────────────────────────
+    // ── Exercise-level drag/drop (mouse) ─────────────────────────
     list.querySelectorAll('.exercise-card').forEach(card => {
       const handle = card.querySelector('.ex-log-drag');
 
@@ -361,7 +482,7 @@ const Logger = (() => {
       });
     });
 
-    // ── Set-level drag/drop ──────────────────────────────────────
+    // ── Set-level drag/drop (mouse) ──────────────────────────────
     list.querySelectorAll('.set-row').forEach(row => {
       const handle = row.querySelector('.set-drag');
 
@@ -402,6 +523,132 @@ const Logger = (() => {
         rebind();
       });
     });
+
+    // ── Touch drag/drop (mobile) ─────────────────────────────────
+    {
+      let touchSrcEi = null, touchSrcSi = null, touchEl = null, touchClone = null;
+
+      function elFromTouch(t) {
+        return document.elementFromPoint(t.clientX, t.clientY);
+      }
+
+      function closestCard(el) {
+        return el ? el.closest('.exercise-card') : null;
+      }
+
+      function closestRow(el) {
+        return el ? el.closest('.set-row') : null;
+      }
+
+      function clearTouchHighlights() {
+        list.querySelectorAll('.exercise-card, .set-row').forEach(n => n.classList.remove('drag-over'));
+      }
+
+      function removeClone() {
+        if (touchClone) { touchClone.remove(); touchClone = null; }
+      }
+
+      function makeClone(el, touch) {
+        const r = el.getBoundingClientRect();
+        touchClone = el.cloneNode(true);
+        touchClone.style.cssText = `
+          position:fixed; left:${r.left}px; top:${r.top}px;
+          width:${r.width}px; opacity:0.75; pointer-events:none;
+          z-index:9999; border-radius:8px; background:var(--surface);
+          box-shadow:0 8px 24px rgba(0,0,0,0.5);`;
+        document.body.appendChild(touchClone);
+      }
+
+      function moveClone(touch) {
+        if (!touchClone) return;
+        const r = touchEl.getBoundingClientRect();
+        touchClone.style.top = (touch.clientY - r.height / 2) + 'px';
+      }
+
+      // exercise handle touch
+      list.querySelectorAll('.ex-log-drag').forEach(handle => {
+        handle.addEventListener('touchstart', e => {
+          const card = handle.closest('.exercise-card');
+          touchSrcEi = +card.dataset.ei;
+          touchSrcSi = null;
+          touchEl = card;
+          card.classList.add('dragging');
+          makeClone(card, e.touches[0]);
+          // don't preventDefault here so scroll still works until move
+        }, { passive: true });
+
+        handle.addEventListener('touchmove', e => {
+          if (touchSrcEi === null || touchSrcSi !== null) return;
+          e.preventDefault();
+          const t = e.touches[0];
+          moveClone(t);
+          clearTouchHighlights();
+          const under = closestCard(elFromTouch(t));
+          if (under && +under.dataset.ei !== touchSrcEi) under.classList.add('drag-over');
+        }, { passive: false });
+
+        handle.addEventListener('touchend', e => {
+          if (touchSrcEi === null || touchSrcSi !== null) return;
+          const t = e.changedTouches[0];
+          clearTouchHighlights();
+          removeClone();
+          if (touchEl) touchEl.classList.remove('dragging');
+          const under = closestCard(elFromTouch(t));
+          if (under) {
+            const tgtEi = +under.dataset.ei;
+            if (tgtEi !== touchSrcEi) {
+              const [moved] = logExercises.splice(touchSrcEi, 1);
+              logExercises.splice(tgtEi, 0, moved);
+              rebind(); return;
+            }
+          }
+          touchSrcEi = null; touchEl = null;
+        }, { passive: true });
+      });
+
+      // set handle touch
+      list.querySelectorAll('.set-drag').forEach(handle => {
+        handle.addEventListener('touchstart', e => {
+          const row = handle.closest('.set-row');
+          touchSrcEi = +row.dataset.ei;
+          touchSrcSi = +row.dataset.si;
+          touchEl = row;
+          row.classList.add('dragging');
+          makeClone(row, e.touches[0]);
+        }, { passive: true });
+
+        handle.addEventListener('touchmove', e => {
+          if (touchSrcSi === null) return;
+          e.preventDefault();
+          const t = e.touches[0];
+          moveClone(t);
+          clearTouchHighlights();
+          const under = closestRow(elFromTouch(t));
+          if (under && (+under.dataset.ei === touchSrcEi) && +under.dataset.si !== touchSrcSi) {
+            under.classList.add('drag-over');
+          }
+        }, { passive: false });
+
+        handle.addEventListener('touchend', e => {
+          if (touchSrcSi === null) return;
+          const t = e.changedTouches[0];
+          clearTouchHighlights();
+          removeClone();
+          if (touchEl) touchEl.classList.remove('dragging');
+          const under = closestRow(elFromTouch(t));
+          if (under) {
+            const tgtEi = +under.dataset.ei;
+            const tgtSi = +under.dataset.si;
+            if (tgtEi === touchSrcEi && tgtSi !== touchSrcSi) {
+              const [moved] = logExercises[tgtEi].sets.splice(touchSrcSi, 1);
+              logExercises[tgtEi].sets.splice(tgtSi, 0, moved);
+              rebind(); return;
+            }
+          }
+          touchSrcEi = null; touchSrcSi = null; touchEl = null;
+        }, { passive: true });
+      });
+    }
   }
 
   function saveLog() {
@@ -484,11 +731,15 @@ const Logger = (() => {
     } else {
       // New log
       const prevPRs = Metrics.getPRs();
+      const sessionNameEl = document.getElementById('log-session-name');
+      const resolvedDayName = sessionNameEl
+        ? (sessionNameEl.value.trim() || 'Custom Workout')
+        : selectedDay.name;
       Storage.addLog({
         id: crypto.randomUUID(),
         date: logDate,
         planId: plan ? plan.id : null,
-        dayName: selectedDay.name,
+        dayName: resolvedDayName,
         bodyWeight,
         timeIn,
         timeOut,
@@ -507,9 +758,18 @@ const Logger = (() => {
 
   /* ── Open log for a specific date, optionally pre-selecting a plan day ── */
   function openForDate(date, planDayName = null) {
+    if (!App.requireAuth()) return;
     _presetDate = date;
-    const el   = document.getElementById('view-log');
     const plan = Plans.getActivePlan();
+
+    // If a plan day name was passed, check if a log already exists for this date + dayName
+    // (created from a previous calendar log session). Open it instead of a blank form.
+    if (planDayName) {
+      const existing = Storage.getLogs().find(l => l.date === date && l.dayName === planDayName);
+      if (existing) { editLog(existing.id); return; }
+    }
+
+    const el = document.getElementById('view-log');
     if (!plan) { App.showView('log'); return; }
     editLogId    = null;
     logExercises = [];

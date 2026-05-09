@@ -1,3 +1,10 @@
+/* ─── Theme ─────────────────────────────────────────────────────── */
+(function() {
+  const saved = localStorage.getItem('fittrack-theme');
+  const pref  = saved || 'dark';
+  document.documentElement.setAttribute('data-theme', pref);
+})();
+
 /* ─── XSS Sanitizer (global — used by App and Logger) ─────────── */
 function esc(str) {
   return String(str ?? '')
@@ -8,7 +15,7 @@ function esc(str) {
     .replace(/'/g, '&#x27;');
 }
 
-/* ─── App ─ Router, Dashboard, Plans, History, Toast ─────────── */
+/* ─── App ─ Router, Dashboard, Plans, Toast ───────────────── */
 const App = (() => {
 
   /* ── Toast ──────────────────────────────────────────────────── */
@@ -71,7 +78,24 @@ const App = (() => {
   }
 
   const EDIT_SVG = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
+  const WARN_SVG = `<svg class="cal-warning-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>`;
   const DOW_LABELS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+  function _calLogIsIncomplete(log) {
+    const exercises = Array.isArray(log?.exercises) ? log.exercises : [];
+    if (!exercises.length) return true;
+    return exercises.some(ex => {
+      const sets = Array.isArray(ex.sets) ? ex.sets : [];
+      if (!sets.length) return true;
+      return sets.some(s => (Number(s.reps) || 0) <= 0 || (Number(s.weight) || 0) <= 0);
+    });
+  }
+
+  function _calWarning(logs) {
+    return logs.some(_calLogIsIncomplete)
+      ? `<span class="cal-warning" title="Workout has missing set fields" aria-label="Workout has missing set fields">${WARN_SVG}</span>`
+      : '';
+  }
 
   /* ── Month calendar (desktop) ───────────────────────────────── */
   function buildMonthCalendar(plan, todayStr) {
@@ -94,6 +118,7 @@ const App = (() => {
       const dow      = cellDate.getDay();
       const logs     = Storage.getLogs().filter(l => l.date === date);
       const session  = logs.length ? logs[0].dayName : null;
+      const warning  = _calWarning(logs);
       const isToday  = date === todayStr;
       const plannedDayName = _calPlannedName(cellDate, dow, session, helpers);
       const missed      = !!plannedDayName && date < todayStr;
@@ -101,7 +126,10 @@ const App = (() => {
       const beforeStart = helpers.planStart && cellDate < helpers.planStart;
       cells += `
         <div class="month-cell${session ? ' cal-active' : ''}${missed ? ' cal-missed' : ''}${planned ? ' cal-planned' : ''}${isToday ? ' cal-today' : ''}">
-          <span class="month-day-num${isToday ? ' today-num' : ''}">${d}</span>
+          <div class="month-cell-top">
+            <span class="month-day-num${isToday ? ' today-num' : ''}">${d}</span>
+            ${warning}
+          </div>
           ${session  ? `<div class="month-session">${esc(session)}</div>` : ''}
           ${missed   ? `<div class="month-missed-label">${esc(plannedDayName)}</div>` : ''}
           ${planned  ? `<div class="month-planned">${esc(plannedDayName)}</div>` : ''}
@@ -153,6 +181,7 @@ const App = (() => {
       const dow  = cellDate.getDay();
       const logs = Storage.getLogs().filter(l => l.date === date);
       const session = logs.length ? logs[0].dayName : null;
+      const warning = _calWarning(logs);
       const isToday = date === todayStr;
       const plannedDayName = _calPlannedName(cellDate, dow, session, helpers);
       const missed   = !!plannedDayName && date < todayStr;
@@ -177,6 +206,7 @@ const App = (() => {
           </div>
           <div class="wday-content">${badge}</div>
           <div class="wday-action">
+            ${warning}
             ${logs.length
               ? `<button class="wday-edit-btn cal-edit-btn" data-id="${logs[0].id}">${EDIT_SVG}&nbsp;Edit</button>`
               : beforeStart
@@ -201,7 +231,7 @@ const App = (() => {
 
   /* ── Calendar dispatcher ────────────────────────────────────── */
   function buildCalendar(plan, todayStr) {
-    return window.innerWidth < 768
+    return window.innerWidth <= 768
       ? buildWeekCalendar(plan, todayStr)
       : buildMonthCalendar(plan, todayStr);
   }
@@ -266,7 +296,7 @@ const App = (() => {
 
     el.innerHTML = `
       <div class="view-header">
-        <h1 class="greeting-heading">${getGreeting()}, ${esc((Auth.getUser()?.displayName || 'there').split(' ')[0])} 👋</h1>
+        <h1 class="greeting-heading"><span class="greeting-hello">${getGreeting()}</span>, ${esc((Auth.getUser()?.displayName || 'there').split(' ')[0])} 👋</h1>
         <p class="subtitle">${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</p>
       </div>
 
@@ -313,7 +343,14 @@ const App = (() => {
 
       <div class="cta-section">
         ${doneToday
-          ? `<p class="logged-today">✅ Workout logged today — keep it up!</p>
+          ? `<p class="logged-today">
+               <span class="logged-today-mark" aria-hidden="true">
+                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                   <path d="M13 2 4 14h7l-1 8 10-13h-7l1-7Z"/>
+                 </svg>
+               </span>
+               <span>Workout logged today <strong>Keep it up!</strong></span>
+             </p>
              <div class="cta-row">
                <a href="#log" class="btn btn-secondary">+ Log Another</a>
                <button class="btn btn-outline" id="btn-edit-log-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit Log</button>
@@ -331,7 +368,7 @@ const App = (() => {
                <button class="btn btn-outline" id="btn-edit-log-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit Log</button>
              </div>`
           : `<div class="cta-row">
-               <a href="#log" class="btn btn-primary btn-lg">${todayWorkout ? `Log ${esc(todayWorkout)} →` : `Log Today's Workout →`}</a>
+               <a href="#log" class="btn btn-primary btn-lg"><span class="btn-label">${todayWorkout ? `Log ${esc(todayWorkout)}` : `Log Today's Workout`}</span><span class="btn-arrow">→</span></a>
                <button class="btn btn-outline" id="btn-edit-log-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit Log</button>
              </div>`
         }
@@ -471,7 +508,7 @@ const App = (() => {
   function bindPlanEvents(el) {
     // Switch
     el.querySelectorAll('[data-switch]').forEach(btn => btn.addEventListener('click', () => {
-      if (!requireAuth()) return;
+      if (!App.requireAuth()) return;
       Plans.setActivePlan(btn.dataset.switch);
       toast('Plan switched!');
       renderPlans();
@@ -479,7 +516,7 @@ const App = (() => {
 
     // Delete
     el.querySelectorAll('[data-delete]').forEach(btn => btn.addEventListener('click', () => {
-      if (!requireAuth()) return;
+      if (!App.requireAuth()) return;
       if (!confirm('Delete this plan?')) return;
       Plans.deleteCustomPlan(btn.dataset.delete);
       toast('Plan deleted');
@@ -502,7 +539,7 @@ const App = (() => {
     });
 
     document.getElementById('btn-save-new').addEventListener('click', () => {
-      if (!requireAuth()) return;
+      if (!App.requireAuth()) return;
       const name = document.getElementById('new-plan-name').value.trim();
       if (!name)         { toast('Enter a plan name', 'error'); return; }
       if (!newDays.length) { toast('Add at least one day', 'error'); return; }
@@ -526,6 +563,7 @@ const App = (() => {
     // Edit
     let editId = null, editDays = [];
     el.querySelectorAll('[data-edit]').forEach(btn => btn.addEventListener('click', () => {
+      if (!App.requireAuth()) return;
       editId = btn.dataset.edit;
       const plan = Storage.getPlanById(editId);
       editDays = JSON.parse(JSON.stringify(plan.days));
@@ -896,7 +934,7 @@ const App = (() => {
     }));
 
     el.querySelectorAll('.btn-del-log').forEach(btn => btn.addEventListener('click', () => {
-      if (!requireAuth()) return;
+      if (!App.requireAuth()) return;
       if (!confirm('Delete this workout log?')) return;
       Storage.deleteLog(btn.dataset.id);
       toast('Log deleted');
@@ -911,7 +949,10 @@ const App = (() => {
     log:       Logger.render,
     progress:  Charts.render,
     plans:     renderPlans,
-    history:   renderHistory,
+    shop:      Shop.render,
+    rooms:     Social.renderRooms,
+    chat:      Social.renderChat,
+    profile:   Social.renderProfile,
   };
 
   function showView(name, skipRender) {
@@ -948,6 +989,27 @@ const App = (() => {
     const topbar = document.getElementById('mobile-topbar');
     if (topbar && window.innerWidth <= 768) return topbar;
     return document.getElementById('app');
+  }
+
+  function _themeIcon(theme) {
+    return theme === 'light'
+      ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`
+      : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+  }
+
+  function _themeLabel(theme) {
+    return theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode';
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme') || 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('fittrack-theme', next);
+    const btn = document.getElementById('btn-theme-toggle');
+    if (btn) {
+      btn.innerHTML = `${_themeIcon(next)} ${_themeLabel(next)}`;
+    }
   }
 
   function renderGuestInfo() {
@@ -1027,6 +1089,20 @@ const App = (() => {
           </div>
         </div>
         <div class="profile-dropdown-divider"></div>
+        <button class="theme-toggle-btn" id="btn-theme-toggle">
+          ${_themeIcon(document.documentElement.getAttribute('data-theme') || 'dark')}
+          ${_themeLabel(document.documentElement.getAttribute('data-theme') || 'dark')}
+        </button>
+        <div class="profile-dropdown-divider"></div>
+        <button class="theme-toggle-btn" id="btn-view-profile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" width="15" height="15">
+            <path d="M20 21a8 8 0 0 0-16 0"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          View Profile
+        </button>
+        <div class="profile-dropdown-divider"></div>
         <button class="profile-dd-signout" id="btn-signout">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                stroke-linecap="round" stroke-linejoin="round" width="15" height="15">
@@ -1048,6 +1124,16 @@ const App = (() => {
       dropdown.hidden = !dropdown.hidden;
     });
     document.addEventListener('click', () => { dropdown.hidden = true; });
+    document.getElementById('btn-theme-toggle').addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleTheme();
+    });
+    document.getElementById('btn-view-profile').addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdown.hidden = true;
+      if (typeof Social !== 'undefined' && Social.openProfile) Social.openProfile(user.uid);
+      else navigate('rooms');
+    });
     document.getElementById('btn-signout').addEventListener('click', () => {
       if (confirm('Sign out?')) Auth.signOut();
     });
@@ -1059,8 +1145,9 @@ const App = (() => {
     const loginScreen = document.getElementById('login-screen');
     const appEl       = document.getElementById('app');
 
-    // Hide the dedicated login screen — we use the modal instead
+    // Show the app immediately — guests can browse read-only
     loginScreen.style.display = 'none';
+    appEl.style.display = 'flex';
 
     // Set up modal sign-in button
     const modalSigninBtn = document.getElementById('btn-modal-signin');
@@ -1070,8 +1157,6 @@ const App = (() => {
           modalSigninBtn.textContent = 'Signing in…';
           modalSigninBtn.disabled = true;
           await Auth.signInWithGoogle();
-          // popup success: onAuthStateChanged fires automatically
-          // redirect: page navigates away — no further action needed here
         } catch (err) {
           console.error('Sign-in error:', err.code, err.message);
           modalSigninBtn.disabled = false;
@@ -1086,18 +1171,19 @@ const App = (() => {
     document.getElementById('btn-modal-close')?.addEventListener('click', hideSignInModal);
     document.getElementById('btn-modal-close-x')?.addEventListener('click', hideSignInModal);
 
-    // Process any pending redirect result (fires after signInWithRedirect returns)
     Auth.handleRedirectResult();
 
     Auth.onAuthReady(async (user) => {
       hideSignInModal();
-      appEl.style.display = 'flex';
 
       if (user) {
         renderUserInfo(user);
         await Storage.init(user);
+        Plans.ensureDefaults();
+        if (typeof Social !== 'undefined') await Social.init(user);
       } else {
         renderGuestInfo();
+        if (typeof Social !== 'undefined') await Social.init(null);
       }
 
       if (!_appBooted) {
@@ -1107,7 +1193,6 @@ const App = (() => {
         window.addEventListener('hashchange', () => showView(location.hash.slice(1)));
         showView(location.hash.slice(1) || 'dashboard');
 
-        // Re-render dashboard when crossing mobile/desktop breakpoint (week ↔ month calendar)
         let _lastMobile = window.innerWidth < 768;
         window.addEventListener('resize', () => {
           const nowMobile = window.innerWidth < 768;
@@ -1121,7 +1206,7 @@ const App = (() => {
     });
   }
 
-  return { navigate, showView, toast, init, requireAuth };
+  return { navigate, showView, showSignInModal, toast, init, requireAuth };
 })();
 
 document.addEventListener('DOMContentLoaded', App.init);

@@ -8,7 +8,7 @@
                  script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net https://www.gstatic.com https://apis.google.com;
                  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
                  font-src https://fonts.gstatic.com;
-                 img-src 'self' https://www.gstatic.com https://*.googleusercontent.com data: blob:;
+                 img-src 'self' https: data: blob:;
                  connect-src 'self' https://*.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com https://firestore.googleapis.com https://www.gstatic.com https://cdn.jsdelivr.net;
                  frame-src https://accounts.google.com https://*.firebaseapp.com;
                  object-src 'none';">
@@ -17,8 +17,8 @@
   <link rel="apple-touch-icon" href="img/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Lato:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=59">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=127">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <!-- Firebase compat SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -30,7 +30,7 @@
   <div id="login-screen" style="display:none;">
     <div class="login-card">
       <div class="login-logo">
-        <img src="img/logo.png" class="login-logo-img" alt="FitTrack">
+        <img src="img/logo-clean.png" class="login-logo-img" alt="FitTrack">
       </div>
       <h2 class="login-title">Sync your workouts<br>everywhere</h2>
       <p class="login-sub">Sign in once — access your data on laptop, phone, and tablet.</p>
@@ -44,7 +44,7 @@
 
   <!-- Mobile-only top nav bar -->
   <div id="mobile-topbar">
-    <img src="img/logo.png" class="mobile-topbar-logo" alt="FitTrack">
+    <img src="img/logo-clean.png" class="mobile-topbar-logo" alt="FitTrack">
     <!-- profile widget is injected here by JS on mobile -->
   </div>
 
@@ -53,7 +53,7 @@
     <nav id="sidebar">
       <div id="nav-brand-area">
         <div class="nav-brand">
-          <img src="img/logo.png" class="nav-logo-img" alt="FitTrack">
+          <img src="img/logo-clean.png" class="nav-logo-img" alt="FitTrack">
         </div>
       </div>
       <button id="sidebar-toggle" title="Collapse sidebar">
@@ -93,14 +93,30 @@
           </a>
         </li>
         <li>
-          <a href="#history" class="nav-link" data-view="history">
+          <a href="#shop" class="nav-link" data-view="shop">
             <span class="nav-icon"><span class="nav-icon-wrap">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
             </span></span>
-            <span class="nav-label">History</span>
+            <span class="nav-label">Shop</span>
           </a>
         </li>
-      </ul>
+        <li>
+          <a href="#rooms" class="nav-link" data-view="rooms">
+            <span class="nav-icon"><span class="nav-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10.5V7a5 5 0 0 0-10 0v3.5"/><rect x="4" y="10.5" width="16" height="10.5" rx="2"/><path d="M8 16h.01"/><path d="M12 16h.01"/><path d="M16 16h.01"/></svg>
+            </span></span>
+            <span class="nav-label">Rooms</span>
+          </a>
+        </li>
+        <li>
+          <a href="#chat" class="nav-link" data-view="chat">
+            <span class="nav-icon"><span class="nav-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 10h8"/><path d="M8 14h5"/></svg>
+            </span></span>
+            <span class="nav-label">Chat</span>
+          </a>
+        </li>
+        </ul>
       <!-- LinkedIn footer in sidebar (desktop only) -->
       <div class="sidebar-footer">
         <a href="https://www.linkedin.com/in/swaruupssarkar/" target="_blank" rel="noopener" class="sidebar-linkedin">
@@ -117,7 +133,10 @@
       <div id="view-log" class="view"></div>
       <div id="view-progress" class="view"></div>
       <div id="view-plans" class="view"></div>
-      <div id="view-history" class="view"></div>
+      <div id="view-shop" class="view"></div>
+      <div id="view-rooms" class="view"></div>
+      <div id="view-chat" class="view"></div>
+      <div id="view-profile" class="view"></div>
       </div><!-- close views-wrapper -->
     </main>
   </div>
@@ -133,7 +152,7 @@
         </svg>
       </button>
       <div class="signin-modal-logo">
-        <img src="img/logo.png" alt="FitTrack" class="signin-modal-logo-img">
+        <img src="img/logo-clean.png" alt="FitTrack" class="signin-modal-logo-img">
       </div>
       <h2 class="signin-modal-title">Sign in to save your data</h2>
       <p class="signin-modal-sub">Your workouts sync across all your devices — laptop, phone, and tablet.</p>
@@ -148,12 +167,14 @@
   <!-- Toast container -->
   <div id="toast-container"></div>
 
-  <script src="js/auth.js?v=45"></script>
-  <script src="js/storage.js?v=43"></script>
-  <script src="js/plans.js?v=43"></script>
-  <script src="js/metrics.js?v=44"></script>
-  <script src="js/logger.js?v=56"></script>
-  <script src="js/charts.js?v=46"></script>
-  <script src="js/app.js?v=60"></script>
+  <script src="js/auth.js?v=76"></script>
+  <script src="js/storage.js?v=72"></script>
+  <script src="js/plans.js?v=73"></script>
+  <script src="js/metrics.js?v=73"></script>
+  <script src="js/logger.js?v=94"></script>
+  <script src="js/charts.js?v=75"></script>
+  <script src="js/shop.js?v=18"></script>
+  <script src="js/social.js?v=7"></script>
+  <script src="js/app.js?v=99"></script>
 </body>
 </html>

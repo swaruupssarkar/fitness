@@ -187,17 +187,22 @@ const Plans = (() => {
 
   function setActivePlan(id) {
     Storage.updateSettings({ activePlanId: id });
+    notifySocialProfile();
   }
 
   function createCustomPlan(name, days, startDate = null) {
     const plan = { id: crypto.randomUUID(), name, isCustom: true, days, startDate };
     Storage.upsertPlan(plan);
+    notifySocialProfile();
     return plan;
   }
 
   function updateCustomPlan(id, name, days) {
     const plan = Storage.getPlanById(id);
-    if (plan && plan.isCustom) Storage.upsertPlan({ ...plan, name, days });
+    if (plan && plan.isCustom) {
+      Storage.upsertPlan({ ...plan, name, days });
+      notifySocialProfile();
+    }
   }
 
   function deleteCustomPlan(id) {
@@ -208,7 +213,33 @@ const Plans = (() => {
       const first = Storage.getPlans()[0];
       Storage.updateSettings({ activePlanId: first ? first.id : null });
     }
+    notifySocialProfile();
   }
 
-  return { ensureDefaults, getActivePlan, setActivePlan, createCustomPlan, updateCustomPlan, deleteCustomPlan };
+  function copyExternalPlan(sourcePlan, ownerName = 'Member') {
+    if (!sourcePlan || !Array.isArray(sourcePlan.days) || !sourcePlan.days.length) {
+      throw new Error('This profile does not have a workout plan to copy.');
+    }
+    const ownerFirst = String(ownerName || 'Member').trim().split(/\s+/)[0] || 'Member';
+    const sourceName = String(sourcePlan.name || 'Workout Plan').trim();
+    const days = JSON.parse(JSON.stringify(sourcePlan.days)).map(day => ({
+      name: String(day.name || '').trim() || 'Training Day',
+      weekDay: day.weekDay === undefined ? null : day.weekDay,
+      exercises: (Array.isArray(day.exercises) ? day.exercises : [])
+        .filter(ex => String(ex.name || '').trim())
+        .map(ex => ({
+          name: String(ex.name || '').trim(),
+          defaultSets: parseInt(ex.defaultSets, 10) || 3,
+          defaultReps: parseInt(ex.defaultReps, 10) || 8,
+        })),
+    })).filter(day => day.exercises.length);
+    return createCustomPlan(`${ownerFirst}'s ${sourceName}`, days, null);
+  }
+
+  return { ensureDefaults, getActivePlan, setActivePlan, createCustomPlan, updateCustomPlan, deleteCustomPlan, copyExternalPlan };
 })();
+  function notifySocialProfile() {
+    if (typeof Social !== 'undefined' && Social.syncOwnProfile) {
+      Social.syncOwnProfile().catch(console.warn);
+    }
+  }

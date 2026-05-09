@@ -1,11 +1,127 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isShopAdmin() {
+      return signedIn() &&
+        request.auth.token.email == "swaruupssarkar@gmail.com";
+    }
+
+    function isPublishedShopProduct() {
+      return resource.data.status == "published";
+    }
+
+    function isFollowing(followerUid, followingUid) {
+      return exists(/databases/$(database)/documents/social_follows/$(followerUid + "_" + followingUid));
+    }
+
+    function isMutualFollow(uidA, uidB) {
+      return isFollowing(uidA, uidB) && isFollowing(uidB, uidA);
+    }
+
+    function isChatParticipant(data) {
+      return signedIn() &&
+        (data.participantAUid == request.auth.uid || data.participantBUid == request.auth.uid);
+    }
+
+    // Public affiliate shop catalog.
+    // Everyone can read published products; only the super admin can manage catalog data.
+    match /shop_products/{productId} {
+      allow get, list: if isShopAdmin() || isPublishedShopProduct();
+      allow create, delete: if isShopAdmin();
+      allow update: if isShopAdmin() ||
+        (
+          isPublishedShopProduct() &&
+          request.resource.data.diff(resource.data).changedKeys().hasOnly(["clickCount", "lastClickedAt"]) &&
+          request.resource.data.clickCount is int &&
+          request.resource.data.clickCount == resource.data.clickCount + 1
+        );
+    }
+
+    // Public category filters for the affiliate shop.
+    // Everyone can read categories; only the super admin can change them.
+    match /shop_settings/{settingId} {
+      allow get, list: if settingId == "categories";
+      allow create, update, delete: if isShopAdmin() && settingId == "categories";
+    }
+
+    // Public social profile cards. Workout logs stay private under /users/{uid}.
+    match /social_profiles/{uid} {
+      allow get, list: if signedIn();
+      allow create: if signedIn() && request.auth.uid == uid;
+      allow update: if signedIn() && (
+        request.auth.uid == uid ||
+        request.resource.data.diff(resource.data).changedKeys().hasOnly(["followersCount", "followingCount", "updatedAt"])
+      );
+      allow delete: if signedIn() && request.auth.uid == uid;
+    }
+
+    // Follow graph. Document id is followerUid_followingUid.
+    match /social_follows/{followId} {
+      allow get, list: if signedIn();
+      allow create: if signedIn() &&
+        request.resource.data.followerUid == request.auth.uid &&
+        request.resource.data.followingUid is string &&
+        request.resource.data.followingUid != request.auth.uid &&
+        followId == request.auth.uid + "_" + request.resource.data.followingUid;
+      allow delete: if signedIn() && resource.data.followerUid == request.auth.uid;
+      allow update: if false;
+    }
+
+    // Live community rooms with voice-state metadata and text chat.
+    match /social_rooms/{roomId} {
+      allow get, list: if signedIn();
+      allow create: if signedIn() && request.resource.data.hostUid == request.auth.uid;
+      allow update: if signedIn();
+      allow delete: if signedIn() && resource.data.hostUid == request.auth.uid;
+
+      match /members/{memberUid} {
+        allow get, list: if signedIn();
+        allow create, update, delete: if signedIn() && memberUid == request.auth.uid;
+      }
+
+      match /messages/{messageId} {
+        allow get, list: if signedIn();
+        allow create: if signedIn() && request.resource.data.senderUid == request.auth.uid;
+        allow update, delete: if signedIn() && resource.data.senderUid == request.auth.uid;
+      }
+    }
+
+    // Direct messages require both people to follow each other.
+    match /social_chats/{chatId} {
+      allow get, list: if isChatParticipant(resource.data) &&
+        isMutualFollow(resource.data.participantAUid, resource.data.participantBUid);
+      allow create: if isChatParticipant(request.resource.data) &&
+        isMutualFollow(request.resource.data.participantAUid, request.resource.data.participantBUid);
+      allow update: if isChatParticipant(resource.data) &&
+        isMutualFollow(resource.data.participantAUid, resource.data.participantBUid);
+      allow delete: if false;
+
+      match /messages/{messageId} {
+        allow get, list: if signedIn() &&
+          isChatParticipant(get(/databases/$(database)/documents/social_chats/$(chatId)).data) &&
+          isMutualFollow(
+            get(/databases/$(database)/documents/social_chats/$(chatId)).data.participantAUid,
+            get(/databases/$(database)/documents/social_chats/$(chatId)).data.participantBUid
+          );
+        allow create: if signedIn() &&
+          request.resource.data.senderUid == request.auth.uid &&
+          isChatParticipant(get(/databases/$(database)/documents/social_chats/$(chatId)).data) &&
+          isMutualFollow(
+            get(/databases/$(database)/documents/social_chats/$(chatId)).data.participantAUid,
+            get(/databases/$(database)/documents/social_chats/$(chatId)).data.participantBUid
+          );
+        allow update, delete: if false;
+      }
+    }
 
     // All user data is nested under /users/{uid}/...
     // Only the authenticated user whose UID matches can read or write their own data.
     match /users/{uid}/{document=**} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
+      allow read, write: if signedIn() && request.auth.uid == uid;
     }
 
     // Deny everything else
