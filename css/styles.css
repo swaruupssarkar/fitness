@@ -6681,11 +6681,12 @@ textarea:focus-visible {
 .social-room-msg p,
 .social-dm-msg p {
   margin: 0;
-  padding: 9px 12px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.06);
-  color: rgba(251,250,255,0.9);
-  font-size: 0.84rem;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.11);
+  color: rgba(251,250,255,0.95);
+  font-size: 0.92rem;
+  line-height: 1.4;
 }
 
 .social-room-msg.own p,
@@ -7257,8 +7258,8 @@ textarea:focus-visible {
   #view-chat .social-dm-mobile-panel .social-dm-thread {
     flex: 1 1 auto;
     min-height: 0;
-    padding: 14px 2px;
-    gap: 11px;
+    padding: 14px 4px;
+    gap: 8px;
     overflow-y: auto;
     overscroll-behavior: contain;
   }
@@ -7287,14 +7288,14 @@ textarea:focus-visible {
   }
 
   #view-chat .social-dm-mobile-panel .social-dm-msg {
-    max-width: min(78%, 320px);
+    max-width: min(80%, 300px);
   }
 
   #view-chat .social-dm-mobile-panel .social-dm-msg p {
-    padding: 10px 12px;
-    border-radius: 13px;
-    font-size: 0.94rem;
-    line-height: 1.35;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    line-height: 1.4;
     word-break: break-word;
   }
 }
@@ -7309,11 +7310,11 @@ textarea:focus-visible {
   .social-room-card-grid {
     grid-template-columns: 1fr;
     gap: 12px;
-    padding: 0 12px 12px;
+    padding: 0 12px calc(80px + env(safe-area-inset-bottom, 0px));
   }
 
   .social-room-list {
-    padding: 8px 12px 12px;
+    padding: 8px 12px calc(80px + env(safe-area-inset-bottom, 0px));
   }
 
   .social-room-card {
