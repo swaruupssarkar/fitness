@@ -1349,7 +1349,7 @@ const Social = (() => {
     const max = room.maxPeople || 10;
     const joined = isRoomJoined(room);
     const locked = isRoomLocked(room);
-    const totalSlots = Math.min(max, 6);
+    const totalSlots = Math.min(max, 10);
     const avatars = roomParticipants(room).slice(0, totalSlots);
     const emptySlots = Math.max(0, totalSlots - avatars.length);
     const infoOpen = state.openRoomInfoId === room.id;
