@@ -6334,8 +6334,9 @@ textarea:focus-visible {
 
 .social-room-card-stage {
   display: flex;
-  align-items: center;
-  gap: 18px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 14px;
   min-height: 128px;
   padding: 8px 4px 0;
 }
@@ -6344,17 +6345,17 @@ textarea:focus-visible {
   display: grid;
   justify-items: center;
   gap: 8px;
-  min-width: 96px;
+  width: 82px;
 }
 
 .social-avatar.social-avatar-card {
-  width: 96px;
-  height: 96px;
+  width: 82px;
+  height: 82px;
   background: linear-gradient(135deg, #0f8dd6, #125ed0);
 }
 
 .social-avatar.social-avatar-card > span {
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 .social-room-card-member > span:last-child {
@@ -6372,8 +6373,8 @@ textarea:focus-visible {
 }
 
 .social-room-card-empty {
-  width: 96px;
-  height: 96px;
+  width: 82px;
+  height: 82px;
   border: 1.5px dashed rgba(142,166,184,0.48);
   border-radius: 50%;
   background: rgba(255,255,255,0.012);
