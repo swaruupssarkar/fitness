@@ -1205,32 +1205,28 @@ const Social = (() => {
   }
 
   function renderMobileChatDetail(profile) {
-    const isOnline = profile?.updatedAt && (now() - profile.updatedAt < 120000);
     return `
       <div class="social-shell social-mobile-chat-detail">
         <section class="social-panel social-dm-panel social-dm-mobile-panel">
           <div class="social-dm-head social-mobile-dm-head">
-            <button class="social-mobile-chat-back" type="button" data-chat-back aria-label="Back">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
-            </button>
+            <button class="social-mobile-chat-back" type="button" data-chat-back aria-label="Back to mutual friends">‹</button>
             ${avatar(profile, 'social-avatar-sm')}
-            <div class="social-mobile-dm-info">
-              <strong>${esc(profile.displayName || 'Member')}</strong>
-              <span class="${isOnline ? 'dm-status-online' : 'dm-status-offline'}">${isOnline ? 'Online' : 'Offline'}</span>
+            <div>
+              <h2>
+                <button class="social-dm-profile-link" type="button" data-open-profile="${esc(profile.uid)}">
+                  ${esc(profile.displayName || 'Member')}
+                </button>
+              </h2>
+              <p>Mutual chat</p>
             </div>
-            <div class="social-mobile-dm-actions">
-              <button class="social-dm-icon-btn" type="button" aria-label="Call">${icon('phone')}</button>
-              <button class="social-dm-icon-btn" type="button" aria-label="More">${icon('dots')}</button>
-            </div>
+            <button class="social-mobile-chat-close" type="button" data-chat-back aria-label="Close chat">${icon('x')}</button>
           </div>
-          <div class="social-dm-date-sep"><span>Today</span></div>
           <div class="social-dm-thread">
             ${renderDirectMessages(profile)}
           </div>
           <form class="social-message-form" id="social-direct-form">
-            <button class="social-dm-attach-btn" type="button" aria-label="Attach">${icon('plus')}</button>
-            <input class="input" id="social-direct-input" placeholder="Type a message..." autocomplete="off">
-            <button class="social-send-btn" type="submit" aria-label="Send">${icon('send')}</button>
+            <input class="input" id="social-direct-input" placeholder="Message..." autocomplete="off">
+            <button class="social-send-btn" type="submit" aria-label="Send direct message">${icon('send')}</button>
           </form>
         </section>
         ${state.fullPlanProfileUid ? renderFullPlanModal() : ''}
@@ -1485,13 +1481,14 @@ const Social = (() => {
 
     let html = messages.map(msg => {
       const isOwn = msg.senderUid === currentUid();
-      const ts = msg.createdAt ? new Date(msg.createdAt).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : '';
-      const checkmarks = msg.status === 'seen'
-        ? '<svg class="dm-checks dm-checks-seen" viewBox="0 0 18 10" fill="none"><path d="M1 5l4 4L13 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 9l4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'
-        : '<svg class="dm-checks" viewBox="0 0 12 10" fill="none"><path d="M1 5l4 4L11 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      let status = '';
+      if (isOwn) {
+        status = msg.status === 'seen' ? 'Seen' : 'Sent';
+      }
       return `
         <div class="social-dm-msg${isOwn ? ' own' : ''}">
-          <p>${esc(msg.text || '')}<span class="dm-meta">${ts}${isOwn ? checkmarks : ''}</span></p>
+          <p>${esc(msg.text || '')}</p>
+          <span>${esc(status)}</span>
         </div>`;
     }).join('');
 
