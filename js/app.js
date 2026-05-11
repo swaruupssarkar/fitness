@@ -951,18 +951,23 @@ const App = (() => {
     plans:     renderPlans,
     shop:      Shop.render,
     rooms:     Social.renderRooms,
+    room:      Social.renderRoomPage,
     chat:      Social.renderChat,
     profile:   Social.renderProfile,
   };
 
   function showView(name, skipRender) {
-    const view = VIEWS[name] ? name : 'dashboard';
+    const route = name || 'dashboard';
+    const baseView = String(route).split(/[/?]/)[0] || 'dashboard';
+    const view = VIEWS[baseView] ? baseView : 'dashboard';
+    const nextRoute = VIEWS[baseView] ? route : 'dashboard';
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     document.getElementById(`view-${view}`).classList.add('active');
     document.querySelectorAll('.nav-link').forEach(a =>
       a.classList.toggle('active', a.dataset.view === view));
+    document.body.classList.toggle('room-mode', view === 'room');
     // Keep hash in sync so nav links always trigger hashchange on next click
-    if (location.hash !== `#${view}`) history.replaceState(null, '', `#${view}`);
+    if (location.hash !== `#${nextRoute}`) history.replaceState(null, '', `#${nextRoute}`);
     if (!skipRender) VIEWS[view]();
   }
 

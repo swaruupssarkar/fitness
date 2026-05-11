@@ -26,15 +26,16 @@ Graph files:
 ## File Versions (bump on every save)
 
 - `index.html` — CSP meta tag lives here; bump `?v=N` on all script/css refs
-- `css/styles.css?v=71`
-- `js/auth.js?v=45`
-- `js/storage.js?v=43`
-- `js/plans.js?v=43`
-- `js/metrics.js?v=44`
-- `js/logger.js?v=63`
-- `js/charts.js?v=46`
-- `js/notes.js?v=3`
-- `js/app.js?v=63`
+- `css/styles.css?v=169`
+- `js/auth.js?v=76`
+- `js/storage.js?v=72`
+- `js/plans.js?v=73`
+- `js/metrics.js?v=73`
+- `js/logger.js?v=94`
+- `js/charts.js?v=75`
+- `js/shop.js?v=18`
+- `js/social.js?v=52`
+- `js/app.js?v=100`
 
 ## Rules
 

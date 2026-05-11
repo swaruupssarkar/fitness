@@ -27,6 +27,98 @@ service cloud.firestore {
         (data.participantAUid == request.auth.uid || data.participantBUid == request.auth.uid);
     }
 
+    function ownsRequestedUsername() {
+      return request.resource.data.usernameKey is string &&
+        request.resource.data.username is string &&
+        existsAfter(/databases/$(database)/documents/social_usernames/$(request.resource.data.usernameKey)) &&
+        getAfter(/databases/$(database)/documents/social_usernames/$(request.resource.data.usernameKey)).data.uid == request.auth.uid &&
+        getAfter(/databases/$(database)/documents/social_usernames/$(request.resource.data.usernameKey)).data.username == request.resource.data.username &&
+        request.resource.data.username == "@" + request.resource.data.usernameKey;
+    }
+
+    function ownsHostRoomLock(roomId) {
+      return signedIn() &&
+        existsAfter(/databases/$(database)/documents/social_room_hosts/$(request.auth.uid)) &&
+        getAfter(/databases/$(database)/documents/social_room_hosts/$(request.auth.uid)).data.uid == request.auth.uid &&
+        getAfter(/databases/$(database)/documents/social_room_hosts/$(request.auth.uid)).data.roomId == roomId;
+    }
+
+    function roomHasSpaceAfter(roomId, memberUid) {
+      return existsAfter(/databases/$(database)/documents/social_rooms/$(roomId)) &&
+        getAfter(/databases/$(database)/documents/social_rooms/$(roomId)).data.status == "active" &&
+        getAfter(/databases/$(database)/documents/social_rooms/$(roomId)).data.participantCount <=
+          getAfter(/databases/$(database)/documents/social_rooms/$(roomId)).data.maxPeople &&
+        memberUid in getAfter(/databases/$(database)/documents/social_rooms/$(roomId)).data.currentParticipantIds;
+    }
+
+    function roomCapacitySafeAfter() {
+      return request.resource.data.currentParticipantIds is list &&
+        request.resource.data.maxPeople is int &&
+        request.resource.data.participantCount is int &&
+        request.resource.data.currentParticipantIds.size() <= request.resource.data.maxPeople &&
+        request.resource.data.participantCount <= request.resource.data.maxPeople;
+    }
+
+    function isRoomHostSettingsUpdate() {
+      return resource.data.hostUid == request.auth.uid &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(["topic", "language", "maxPeople", "updatedAt"]) &&
+        request.resource.data.maxPeople >= request.resource.data.currentParticipantIds.size();
+    }
+
+    function isRoomJoinUpdate() {
+      return resource.data.status == "active" &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(["participantCount", "currentParticipantIds", "updatedAt"]) &&
+        resource.data.currentParticipantIds is list &&
+        !(request.auth.uid in resource.data.currentParticipantIds) &&
+        request.auth.uid in request.resource.data.currentParticipantIds &&
+        request.resource.data.currentParticipantIds.size() == resource.data.currentParticipantIds.size() + 1 &&
+        request.resource.data.participantCount == resource.data.participantCount + 1 &&
+        request.resource.data.participantCount <= resource.data.maxPeople;
+    }
+
+    function isRoomSelfLeaveUpdate() {
+      return request.resource.data.diff(resource.data).affectedKeys().hasOnly(["participantCount", "currentParticipantIds", "updatedAt"]) &&
+        resource.data.currentParticipantIds is list &&
+        request.auth.uid in resource.data.currentParticipantIds &&
+        !(request.auth.uid in request.resource.data.currentParticipantIds) &&
+        request.resource.data.currentParticipantIds.size() == resource.data.currentParticipantIds.size() - 1;
+    }
+
+    function isRoomHostMemberUpdate() {
+      return resource.data.hostUid == request.auth.uid &&
+        resource.data.currentParticipantIds is list &&
+        request.resource.data.currentParticipantIds.size() == resource.data.currentParticipantIds.size() - 1 &&
+        (
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(["participantCount", "currentParticipantIds", "updatedAt"]) ||
+          (
+            request.auth.uid in resource.data.currentParticipantIds &&
+            !(request.auth.uid in request.resource.data.currentParticipantIds) &&
+            request.resource.data.hostUid in request.resource.data.currentParticipantIds &&
+            request.resource.data.diff(resource.data).affectedKeys().hasOnly(["participantCount", "currentParticipantIds", "hostUid", "hostName", "hostPhoto", "updatedAt"])
+          )
+        );
+    }
+
+    function isLastRoomMember(roomData) {
+      return roomData.currentParticipantIds is list &&
+        request.auth.uid in roomData.currentParticipantIds &&
+        roomData.currentParticipantIds.size() <= 1;
+    }
+
+    function hostedRoomWillBeClosedGoneOrTransferred(roomId, uid) {
+      return !existsAfter(/databases/$(database)/documents/social_rooms/$(roomId)) ||
+        getAfter(/databases/$(database)/documents/social_rooms/$(roomId)).data.status == "closed" ||
+        getAfter(/databases/$(database)/documents/social_rooms/$(roomId)).data.hostUid != uid;
+    }
+
+    function hostLockMatchesRoom(uid, roomId) {
+      return request.resource.data.uid == uid &&
+        request.resource.data.roomId is string &&
+        request.resource.data.roomId == roomId &&
+        existsAfter(/databases/$(database)/documents/social_rooms/$(roomId)) &&
+        getAfter(/databases/$(database)/documents/social_rooms/$(roomId)).data.hostUid == uid;
+    }
+
     // Public affiliate shop catalog.
     // Everyone can read published products; only the super admin can manage catalog data.
     match /shop_products/{productId} {
@@ -51,12 +143,25 @@ service cloud.firestore {
     // Public social profile cards. Workout logs stay private under /users/{uid}.
     match /social_profiles/{uid} {
       allow get, list: if signedIn();
-      allow create: if signedIn() && request.auth.uid == uid;
+      allow create: if signedIn() && request.auth.uid == uid && ownsRequestedUsername();
       allow update: if signedIn() && (
-        request.auth.uid == uid ||
+        (request.auth.uid == uid && ownsRequestedUsername()) ||
         request.resource.data.diff(resource.data).changedKeys().hasOnly(["followersCount", "followingCount", "updatedAt"])
       );
       allow delete: if signedIn() && request.auth.uid == uid;
+    }
+
+    // Username reservations. One normalized username key can belong to only one uid.
+    match /social_usernames/{usernameKey} {
+      allow get, list: if signedIn();
+      allow create, update: if signedIn() &&
+        usernameKey.matches('^[a-z0-9]{1,32}$') &&
+        request.resource.data.uid == request.auth.uid &&
+        request.resource.data.usernameKey == usernameKey &&
+        request.resource.data.username == "@" + usernameKey &&
+        (!exists(/databases/$(database)/documents/social_usernames/$(usernameKey)) ||
+          resource.data.uid == request.auth.uid);
+      allow delete: if false;
     }
 
     // Follow graph. Document id is followerUid_followingUid.
@@ -74,13 +179,31 @@ service cloud.firestore {
     // Live community rooms with voice-state metadata and text chat.
     match /social_rooms/{roomId} {
       allow get, list: if signedIn();
-      allow create: if signedIn() && request.resource.data.hostUid == request.auth.uid;
-      allow update: if signedIn();
-      allow delete: if signedIn() && resource.data.hostUid == request.auth.uid;
+      allow create: if signedIn() &&
+        request.resource.data.hostUid == request.auth.uid &&
+        ownsHostRoomLock(roomId);
+      allow update: if signedIn() &&
+        roomCapacitySafeAfter() &&
+        (
+          isRoomHostSettingsUpdate() ||
+          isRoomJoinUpdate() ||
+          isRoomSelfLeaveUpdate() ||
+          isRoomHostMemberUpdate()
+        );
+      allow delete: if signedIn() && (
+        resource.data.hostUid == request.auth.uid ||
+        isLastRoomMember(resource.data)
+      );
 
       match /members/{memberUid} {
         allow get, list: if signedIn();
-        allow create, update, delete: if signedIn() && memberUid == request.auth.uid;
+        allow create: if signedIn() && memberUid == request.auth.uid &&
+          roomHasSpaceAfter(roomId, memberUid);
+        allow update: if signedIn() && memberUid == request.auth.uid;
+        allow delete: if signedIn() && (
+          memberUid == request.auth.uid ||
+          get(/databases/$(database)/documents/social_rooms/$(roomId)).data.hostUid == request.auth.uid
+        );
       }
 
       match /messages/{messageId} {
@@ -88,6 +211,50 @@ service cloud.firestore {
         allow create: if signedIn() && request.resource.data.senderUid == request.auth.uid;
         allow update, delete: if signedIn() && resource.data.senderUid == request.auth.uid;
       }
+
+      match /calls/{callId} {
+        allow get, list: if signedIn();
+        allow create: if signedIn() && (
+          request.resource.data.callerUid == request.auth.uid ||
+          request.resource.data.calleeUid == request.auth.uid
+        );
+        allow update, delete: if signedIn() && (
+          resource.data.callerUid == request.auth.uid ||
+          resource.data.calleeUid == request.auth.uid
+        );
+
+        match /callerCandidates/{candidateId} {
+          allow get, list: if signedIn();
+          allow create: if signedIn() && request.resource.data.uid == request.auth.uid;
+          allow update, delete: if false;
+        }
+
+        match /calleeCandidates/{candidateId} {
+          allow get, list: if signedIn();
+          allow create: if signedIn() && request.resource.data.uid == request.auth.uid;
+          allow update, delete: if false;
+        }
+      }
+    }
+
+    // One active hosted room per signed-in member. The document id is the host uid.
+    match /social_room_hosts/{uid} {
+      allow get: if signedIn() && uid == request.auth.uid;
+      allow list: if false;
+      allow create: if signedIn() &&
+        hostLockMatchesRoom(uid, request.resource.data.roomId) &&
+        (
+          uid == request.auth.uid ||
+          (
+            exists(/databases/$(database)/documents/social_rooms/$(request.resource.data.roomId)) &&
+            get(/databases/$(database)/documents/social_rooms/$(request.resource.data.roomId)).data.hostUid == request.auth.uid
+          )
+        );
+      allow update: if false;
+      allow delete: if signedIn() &&
+        uid == request.auth.uid &&
+        resource.data.roomId is string &&
+        hostedRoomWillBeClosedGoneOrTransferred(resource.data.roomId, uid);
     }
 
     // Direct messages require both people to follow each other.
