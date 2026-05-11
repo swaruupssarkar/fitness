@@ -7326,9 +7326,14 @@ textarea:focus-visible {
   }
 
   .social-room-card-stage {
-    gap: 12px;
-    overflow-x: auto;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    overflow-x: unset;
     padding-bottom: 4px;
+  }
+
+  .social-room-card-stage > *:nth-child(n+7) {
+    display: none;
   }
 
   .social-avatar.social-avatar-card,
