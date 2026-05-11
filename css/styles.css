@@ -6334,7 +6334,7 @@ textarea:focus-visible {
 
 .social-room-card-stage {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, minmax(0, 64px));
   gap: 10px;
   min-height: 128px;
   padding: 8px 4px 0;
@@ -6348,13 +6348,14 @@ textarea:focus-visible {
 }
 
 .social-avatar.social-avatar-card {
-  width: 72px;
-  height: 72px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
   background: linear-gradient(135deg, #0f8dd6, #125ed0);
 }
 
 .social-avatar.social-avatar-card > span {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
 }
 
 .social-room-card-member > span:last-child {
