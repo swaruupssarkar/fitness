@@ -7217,10 +7217,10 @@ textarea:focus-visible {
     width: 100%;
     height: 100dvh;
     min-height: 0 !important;
-    padding: calc(env(safe-area-inset-top, 0px) + 64px) 14px calc(env(safe-area-inset-bottom, 0px) + 12px);
+    padding: calc(env(safe-area-inset-top, 0px) + 64px) 14px calc(env(safe-area-inset-bottom, 0px)) 14px;
     display: flex;
     flex-direction: column;
-    border: 0;
+    border: 1px solid rgba(224,214,255,0.12);
     border-radius: 0;
     background: #080b12;
     box-shadow: none;
@@ -7232,7 +7232,7 @@ textarea:focus-visible {
     grid-template-columns: 44px 38px minmax(0, 1fr) 44px;
     align-items: center;
     gap: 12px;
-    padding: 4px 0 12px;
+    padding: 12px 0 12px;
     border-bottom: 1px solid rgba(224,214,255,0.12);
   }
 
@@ -7271,9 +7271,10 @@ textarea:focus-visible {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 52px;
     gap: 10px;
-    padding: 12px 0 0;
+    padding: 12px 0 calc(env(safe-area-inset-bottom, 0px) + 8px);
     border-top: 1px solid rgba(224,214,255,0.1);
     background: #080b12;
+    margin-top: auto;
   }
 
   #view-chat .social-dm-mobile-panel .social-message-form .input {

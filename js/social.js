@@ -1666,6 +1666,16 @@ const Social = (() => {
         typing: { [me]: nowTime }
       }, { merge: true });
     });
+
+    const thread = el.querySelector('.social-dm-thread');
+    const directInput = el.querySelector('#social-direct-input');
+    if (thread && directInput) {
+      thread.addEventListener('click', (e) => {
+        if (e.target === thread || e.target.closest('.social-dm-thread') === thread) {
+          directInput.focus();
+        }
+      });
+    }
   }
 
   function bindProfileEvents(el) {
