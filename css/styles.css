@@ -6651,6 +6651,7 @@ textarea:focus-visible {
   display: flex;
   flex: 1;
   flex-direction: column;
+  justify-content: flex-end;
   gap: 9px;
   min-height: 170px;
   padding: 14px 0;
@@ -7214,14 +7215,14 @@ textarea:focus-visible {
 
   .social-dm-mobile-panel {
     width: 100%;
-    height: 100%;
+    height: 100dvh;
     min-height: 0 !important;
-    padding: calc(env(safe-area-inset-top, 0px) + 12px) 14px calc(env(safe-area-inset-bottom, 0px) + 12px);
+    padding: calc(env(safe-area-inset-top, 0px) + 12px) 14px 0;
     display: flex;
     flex-direction: column;
     border: 0;
     border-radius: 0;
-    background: transparent;
+    background: #080b12;
     box-shadow: none;
   }
 
@@ -7262,6 +7263,7 @@ textarea:focus-visible {
     gap: 8px;
     overflow-y: auto;
     overscroll-behavior: contain;
+    justify-content: flex-end;
   }
 
   #view-chat .social-dm-mobile-panel .social-message-form {
@@ -7269,7 +7271,7 @@ textarea:focus-visible {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 52px;
     gap: 10px;
-    padding: 12px 0 env(safe-area-inset-bottom, 0px);
+    padding: 12px 0 calc(env(safe-area-inset-bottom, 0px) + 12px);
     border-top: 1px solid rgba(224,214,255,0.1);
     background: #080b12;
   }
