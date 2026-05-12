@@ -6334,7 +6334,7 @@ textarea:focus-visible {
 
 .social-room-card-stage {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 64px));
+  grid-template-columns: repeat(5, 1fr);
   gap: 10px;
   min-height: 128px;
   padding: 8px 4px 0;
