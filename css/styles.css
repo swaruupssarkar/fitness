@@ -6345,12 +6345,14 @@ textarea:focus-visible {
   justify-items: center;
   gap: 8px;
   width: 100%;
+  min-width: 0;
 }
 
 .social-avatar.social-avatar-card {
   width: 100%;
   height: auto;
   aspect-ratio: 1;
+  max-width: 64px;
   background: linear-gradient(135deg, #0f8dd6, #125ed0);
 }
 
@@ -6374,10 +6376,13 @@ textarea:focus-visible {
 
 .social-room-card-empty {
   width: 100%;
+  height: auto;
   aspect-ratio: 1;
+  max-width: 64px;
   border: 1.5px dashed rgba(142,166,184,0.48);
   border-radius: 50%;
   background: rgba(255,255,255,0.012);
+  align-self: start;
 }
 
 .social-room-card-foot {
@@ -7339,12 +7344,15 @@ textarea:focus-visible {
 
   .social-avatar.social-avatar-card,
   .social-room-card-empty {
-    width: 78px;
-    height: 78px;
+    width: 100%;
+    height: auto;
+    max-width: none;
+    aspect-ratio: 1;
   }
 
   .social-room-card-member {
-    min-width: 78px;
+    width: 100%;
+    min-width: 0;
   }
 
   .social-room-card-foot {
