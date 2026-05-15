@@ -6346,13 +6346,16 @@ textarea:focus-visible {
   gap: 8px;
   width: 100%;
   min-width: 0;
+  align-self: start;
 }
 
-.social-avatar.social-avatar-card {
+.social-room-card-stage .social-avatar.social-avatar-card {
+  display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 1;
   max-width: 64px;
+  flex: none;
   background: linear-gradient(135deg, #0f8dd6, #125ed0);
 }
 
@@ -6379,10 +6382,11 @@ textarea:focus-visible {
   height: auto;
   aspect-ratio: 1;
   max-width: 64px;
+  justify-self: center;
+  align-self: start;
   border: 1.5px dashed rgba(142,166,184,0.48);
   border-radius: 50%;
   background: rgba(255,255,255,0.012);
-  align-self: start;
 }
 
 .social-room-card-foot {
