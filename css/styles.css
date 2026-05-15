@@ -6356,6 +6356,8 @@ textarea:focus-visible {
   aspect-ratio: 1;
   max-width: 64px;
   flex: none;
+  border-radius: 50%;
+  overflow: hidden;
   background: linear-gradient(135deg, #0f8dd6, #125ed0);
 }
 
@@ -7352,6 +7354,8 @@ textarea:focus-visible {
     height: auto;
     max-width: none;
     aspect-ratio: 1;
+    border-radius: 50%;
+    overflow: hidden;
   }
 
   .social-room-card-member {
