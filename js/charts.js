@@ -195,8 +195,13 @@ const Charts = (() => {
     const pr      = prs[name] || 0;
 
     const badge = document.getElementById('pr-badge');
-    if (pr > 0) { badge.textContent = `🏆 PR: ${pr} kg`; badge.classList.remove('hidden'); }
-    else badge.classList.add('hidden');
+    if (pr > 0) {
+      badge.textContent = `🏆 PR: ${pr} kg`;
+      badge.classList.remove('hidden');
+    } else {
+      badge.textContent = '🏆 —';
+      badge.classList.remove('hidden');
+    }
 
     const labels = history.map(h =>
       new Date(h.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
